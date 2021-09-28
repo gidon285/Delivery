@@ -1,0 +1,121 @@
+html {
+    height: 100%;
+    min-height:100%
+}
+body {
+    display: flex; 
+    font-size: 14px;
+    margin:0;
+    align-items: center;
+    justify-content:center; 
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto; 
+    font-family: Calibri, Helvetica, sans-serif;
+    background: linear-gradient(to right, rgb(183, 227, 245),rgb(238, 170, 93)) ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.perspective-text {
+    position: relative;
+    top: 20px;
+    left: 150px;
+    color: white;
+    font-family: Arial;
+    font-size: 58px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+.perspective-line {
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+p {
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 40px;
+    color: #474647;
+    margin: 0;
+    height: 50px;
+    line-height: 50px;
+}
+.perspective-line:nth-child(1) {
+    left: 29px;
+}
+
+.perspective-line:nth-child(2) {
+    left: 2px;
+    background: #ffffff;
+}
+
+.perspective-line:nth-child(3) {
+    left: 30px;
+    background: #e7f06c;
+}
+
+.perspective-line:nth-child(4) {
+    left: 60px;
+    background: #ffffff;
+}
+
+.perspective-line:nth-child(5) {
+    left: 80px;
+    background: #e7f06c;
+}
+/* new */
+#box {
+    position: relative;
+    top: 300px;
+    left: -150px;
+    width: 400px;
+    margin: 0;
+    text-align: center;
+    background:#FFF;
+    padding:20px 50px;
+    box-sizing:border-box;
+    box-shadow:0 3px 12px rgba(0,0,0,0.2);
+    border-radius:2%;
+}
+.upv,::placeholder{
+    font-size: 13px;
+    margin: 0;
+    color: #000000 !important;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+}
+.password{
+    width: 90%;
+    padding: 15px 12px;
+    margin-bottom: 5px;
+    border: 1px solid #e5e5e5;
+    border-bottom: 2px solid #ddd;
+    background: rgba(0, 0, 0, 0.2) ;
+}
+#button {
+    right:65px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color: rgba(219, 213, 213, 0.6) !important;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 9px #999;
+}
+.button:hover {
+    background-color: rgba(255,255,255,0.6) !important;
+}
+.button:active {
+    background-color: rgba(255,255,255,0.6) !important;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
