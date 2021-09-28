@@ -8,18 +8,22 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
+    "start": "nodemon main.js",
     "test-gen": "generator.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@nuintun/qrcode": "^3.0.1",
+    "connect-redis": "^6.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "firebase": "^9.1.0",
+    "fs": "0.0.1-security",
     "nodemon": "^2.0.12",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "redis": "^3.1.2"
   }
 }

@@ -1,5 +1,6 @@
 const faker = require('faker');
 const QRCode = require('qrcode');
+var fs = require('fs');
 // lists
 const _pgender_type = ["Male","Female"];
 const _edomain = ["@gmail.com", "@yahoo.com","@outlook.com"
@@ -277,6 +278,22 @@ function lfsr(seed,length,base){
     }
     return  result; 
 }
+/**
+ * Saves the given json to a text file.
+ * @param jsonData actual json variable. 
+ * @param fs node packages to save json to text.
+*/
+function json_toText(fs,jsonData){
+    fs.writeFile("test.txt", jsonData, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+/**
+ * Saves a given ID num(hex) to a QRCode image.
+ * @param id the package ID. 
+*/
 function qr_to_image(id){
     QRCode.toFile(__dirname+'/qr/pqrcode.png',id,
                 {color: {dark: '#0000',light: '#ffff'}},
@@ -330,7 +347,7 @@ function gen_packageString(id,arrival,quantity){
 */
 function fabricate_package(seed,length,base,duration,quantity){
     var _pid = lfsr(seed,length,base);
-    qr_to_image(_pid)
+    // qr_to_image(_pid);
     switch (duration) {
         default: 
             return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(1))),null,2));
@@ -361,10 +378,11 @@ function fabricate_package(seed,length,base,duration,quantity){
                     defualting as shortest.
 * @return      return a json file that represents the package.
 */
-function fabricate_Multipackages(num,seed,length,base,duration,quantity){
-    var gson; 
+function fabricate_Multipackages(num,seed,length,base,quantity){
+    var gson=""; 
+    
     for (let i = 0; i < num; i++) {
-        gson += fabricate_package(seed+i,length,base,duration,quantity);
+        gson += fabricate_package(seed+i,length,base,gen_IntRange(0,5),gen_IntRange(0,5));
     }
     return gson;
 }
