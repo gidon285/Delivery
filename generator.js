@@ -380,9 +380,9 @@ function fabricate_package(seed,length,base,duration,quantity){
 */
 function fabricate_Multipackages(num,seed,length,base,quantity){
     var gson=""; 
-    
     for (let i = 0; i < num; i++) {
         gson += fabricate_package(seed+i,length,base,gen_IntRange(0,5),gen_IntRange(0,5));
     }
     return gson;
 }
+console.log(fabricate_Multipackages(1,1123131,10,16,1));
