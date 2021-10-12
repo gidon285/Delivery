@@ -5,6 +5,7 @@ const router = express.Router();
 const path = require('path');
 const redis = require('redis');
 rejson = require('redis-rejson');
+
 rejson(redis);
 const client = redis.createClient(6379,'127.0.0.1');
 module.exports = router;
@@ -18,19 +19,22 @@ function getUserData(key){
         })
     });
 }
-async function isRegistered(user,pass){
+router.get('/', async (req, res) => {
     var _data = await getUserData('users');
+    var data ={size:2};
     var _userdata = JSON.parse(_data);
     for (var i = 0; i < _userdata.users.length; i++) {
-        if((_userdata.users[i].username == user)&&(_userdata.users[i].password == pass )){
-            
+        if((_userdata.users[i].username == req.query.user)&&(_userdata.users[i].password == req.query.pass )){
+            var place =(path.join(__dirname,'..','/views/pages/table'));
+            var user = {name:_userdata.users[i].username};
+            console.log("ok");
+            // res.render(place, user);
+        }else if((_userdata.users[i].username == req.query.user)&&(_userdata.users[i].password != req.query.pass )){
+            console.log("worng password");
         }
-        
+
     }
-}
-router.get('/', async (req, res) => {
-    let ans = await isRegistered(req.query.user,req.query.pass);
-    
+    // not found 
 })
 
 router.get('/register', async (req, res) => {
