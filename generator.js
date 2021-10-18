@@ -350,17 +350,17 @@ function fabricate_package(seed,length,base,duration,quantity){
     // qr_to_image(_pid);
     switch (duration) {
         default: 
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(1))),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(1)))));
         case 1:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(duration*2),quantity)),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(duration*2),quantity))));
         case 2:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(7),quantity)),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(7),quantity))));
         case 3:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(14),quantity)),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(14),quantity))));
         case 4:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(25),quantity)),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(25),quantity))));
         case 5:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(40),quantity)),null,2));
+            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(40),quantity))));
       }
 }
 /**
@@ -385,4 +385,8 @@ function fabricate_Multipackages(num,seed,length,base,quantity){
     }
     return gson;
 }
-console.log(fabricate_Multipackages(1,1123131,10,16,1));
+fs.writeFile('user.json', fabricate_Multipackages(1000,1123131,10,16,5), (err) => {
+    if (err) {
+        throw err;
+    }
+});

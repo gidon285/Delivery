@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
+    <script defer src="userscript.js"></script>
+</head>
+<body>
+      <div id="login-box">
+          <div class="left">
+            <form>
+            <h1>Sign up</h1>
+            <br><br>
+            <input type="text" id="name" placeholder="Username" />
+            <input type="password" id="pass1" placeholder="Password" />
+            <input type="password" id="pass2" placeholder="Retype password" />
+            <button type="button" onclick="ms()" class="buttonR" data-modal-target="#modal">Sign up</button>
+          </form>
+          </div>
+        </div>
+    <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="title" id="modal-tile"></div>
+      <button data-close-button class="close-button">&times;</button>
+    </div>
+      <div class="modal-body" id="modal-message"></div>
+  </div>
+  <div id="overlay"></div>
+</body>
+</html>
