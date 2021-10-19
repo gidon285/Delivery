@@ -53,18 +53,26 @@ function AteempetSignup(){
   }
 }  
 function AteempetLogin(){
+  var data = {name:document.getElementById('user').value,
+              pass:document.getElementById('password').value};
   let request = new XMLHttpRequest();
   request.open("POST", 'http://localhost:3000/dashboard/login',true);
   request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-  request.send("Adsdas");
+  request.send(JSON.stringify(data));
   request.onreadystatechange = function() {
   if (request.readyState === 4) {
+    var jsonrespons = JSON.parse(request.response);
+      if( jsonrespons.succ === ""){
+        document.getElementById('Mymodal-tile').innerHTML="Error!";
+        document.getElementById('Mymodal-message').innerHTML= jsonrespons.err;
+      }else{
         let clossebutton = document.querySelectorAll('[data-close-button]')
         clossebutton.forEach(button =>{
           const modal2 = button.closest('.Mymodal')
           closeModal(modal2)
         })
         document.getElementById("accepted").submit();
+      }
     }
   }
   
