@@ -44,7 +44,6 @@ router.post('/login', async (req, res) => {
     }
 })
 router.get('/dashboard',async (req,res)=>{
-    console.log("dsa2213");
     res.render('./pages/dashboard');
 });
 router.get('/profile',async (req,res)=>{
