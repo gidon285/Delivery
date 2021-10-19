@@ -10,14 +10,14 @@ openModalButtons.forEach(button => {
 })
 
 overlay.addEventListener('click', () => {
-  const modals = document.querySelectorAll('.modal.active')
+  const modals = document.querySelectorAll('.Mymodal.active')
   modals.forEach(modal => {
     closeModal(modal)
   })
 })
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
-    const modal = button.closest('.modal')
+    const modal = button.closest('.Mymodal')
     closeModal(modal)
   })
 })
@@ -31,7 +31,7 @@ function closeModal(modal) {
   modal.classList.remove('active')
   overlay.classList.remove('active')
 }
-function ms(){
+function AteempetSignup(){
   data = {name:document.getElementById('name').value,
           pass1:document.getElementById('pass1').value,
           pass2:document.getElementById('pass2').value};
@@ -43,12 +43,32 @@ function ms(){
   if (request.readyState === 4) {
     var jsonrespons = JSON.parse(request.response);
     if( jsonrespons.succ === ""){
-      document.getElementById('modal-tile').innerHTML="Error!";
-      document.getElementById('modal-message').innerHTML= jsonrespons.err;
+      document.getElementById('Mymodal-tile').innerHTML="Error!";
+      document.getElementById('Mymodal-message').innerHTML= jsonrespons.err;
     }else{
-      document.getElementById('modal-tile').innerHTML="Thanke you for Signing up!"
-      document.getElementById('modal-message').innerHTML= jsonrespons.succ;
+      document.getElementById('Mymodal-tile').innerHTML="Thanke you for Signing up!"
+      document.getElementById('Mymodal-message').innerHTML= jsonrespons.succ;
     }
     }
   }
+}  
+function AteempetLogin(){
+  // data = {name:document.getElementById('user').value,
+  //         pass1:document.getElementById('pass').value};
+  // let request = new XMLHttpRequest();
+  // request.open("POST", 'http://localhost:3000/register/s',true);
+  // request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+  // request.send(JSON.stringify(data));
+  // request.onreadystatechange = function() {
+  // if (request.readyState === 4) {
+  //   var jsonrespons = JSON.parse(request.response);
+  //   if( jsonrespons.succ === ""){
+  //     document.getElementById('modal-tile').innerHTML="Error!";
+  //     document.getElementById('modal-message').innerHTML= jsonrespons.err;
+  //   }else{
+  //     document.getElementById('modal-tile').innerHTML="Thanke you for Signing up!"
+  //     document.getElementById('modal-message').innerHTML= jsonrespons.succ;
+  //   }
+  //   }
+  // }
 }  

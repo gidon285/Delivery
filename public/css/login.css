@@ -1,7 +1,67 @@
-html {
-    height: 100%;
-    min-height:100%
-}
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+ 
+.Mymodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+  }
+  
+  .Mymodal.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .Mymodal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+  
+  .Mymodal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .Mymodal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .Mymodal-body {
+    padding: 10px 15px;
+  }
+  
+  #overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+  }
+  
+  #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
 body {
     display: flex; 
     font-size: 14px;
@@ -12,7 +72,7 @@ body {
     margin-left: auto;
     margin-right: auto; 
     font-family: Calibri, Helvetica, sans-serif;
-    background: linear-gradient(to right, rgb(183, 227, 245),rgb(238, 170, 93)) ;
+    background: linear-gradient(to right,rgb(173, 222, 241) ,rgb(98, 158, 248)) ;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -54,7 +114,7 @@ p {
 
 .perspective-line:nth-child(3) {
     left: 30px;
-    background: #e7f06c;
+    background: #6d7c92;
 }
 
 .perspective-line:nth-child(4) {
@@ -64,9 +124,8 @@ p {
 
 .perspective-line:nth-child(5) {
     left: 80px;
-    background: #e7f06c;
+    background: #6d7c92;
 }
-/* new */
 #box {
     position: relative;
     top: 300px;
@@ -96,7 +155,7 @@ p {
     border-bottom: 2px solid #ddd;
     background: rgba(0, 0, 0, 0.2) ;
 }
-#buttonS {
+.buttonS {
     position: relative;
     right:55px;
     top: 16px;
@@ -158,4 +217,4 @@ p {
     padding: 30px 50px;
     width: 600px;
     max-width: 100%;
-}
+} 

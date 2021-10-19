@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-   
+    <script defer src="script.js"></script>
   </head>
   <body>
     <!-- dont touch below! -->
@@ -29,16 +29,24 @@
     </center>
       <div id="box">
         <h5>Login</h5>
-        <form method="GET" action="http://localhost:3000/login">
-          <input type="text" class= "upv" name="user" placeholder=" Username">
-          <input type="password" class= "upv" name="pass" placeholder=" Password" >
-          <button type="submit" id= "buttonS">Submit</button>
+        <form>
+          <input type="text" class= "upv" id="user" name="user" placeholder=" Username">
+          <input type="password" class= "upv" id="pass" name="pass" placeholder=" Password" >
+          <button type="button" onclick="AteempetLogin()" class= "buttonS" data-modal-target="#Mymodal">Submit</button>
         </form>
         <form method="get" action="/register">
           <button id = "buttonR" type="submit"> Register</button>
         </form>
         <br>
       </div>
+      <div class="Mymodal" id="Mymodal">
+        <div class="Mymodal-header">
+          <div class="title" id="Mymodal-tile"></div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+          <div class="Mymodal-body" id="Mymodal-message"></div>
+      </div>
+      <div id="overlay"></div>
   </center>
   </body>
 </html>

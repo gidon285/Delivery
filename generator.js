@@ -330,6 +330,7 @@ function gen_packageString(id,arrival,quantity){
     +"\"reciver_address\":[{"+gen_Reciver_Address()+"}],"
     +"\"arrival_date\":"+"\""+arrival+"\","
     +"\"sent_date\":\""+ _date+"\"}}");
+    
 }
 /**
  *   This function is the main fuction, it will generate a random package including all of its aspects. 
@@ -350,17 +351,17 @@ function fabricate_package(seed,length,base,duration,quantity){
     // qr_to_image(_pid);
     switch (duration) {
         default: 
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(1)))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(1))));
         case 1:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(duration*2),quantity))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(duration*2),quantity)));
         case 2:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(7),quantity))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(7),quantity)));
         case 3:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(14),quantity))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(14),quantity)));
         case 4:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(25),quantity))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(25),quantity)));
         case 5:
-            return (JSON.stringify(JSON.parse(gen_packageString(_pid,faker.date.soon(40),quantity))));
+            return (JSON.parse(gen_packageString(_pid,faker.date.soon(40),quantity)));
       }
 }
 /**
@@ -379,13 +380,17 @@ function fabricate_package(seed,length,base,duration,quantity){
 * @return      return a json file that represents the package.
 */
 function fabricate_Multipackages(num,seed,length,base,quantity){
-    var gson=""; 
+    var gson="{"; 
     for (let i = 0; i < num; i++) {
-        gson += fabricate_package(seed+i,length,base,gen_IntRange(0,5),gen_IntRange(0,5));
+        if(i == num-1){
+            gson += JSON.stringify(fabricate_package(seed+(i*2),length,base,gen_IntRange(0,5),gen_IntRange(0,5)));
+            break;
+        }
+        gson += JSON.stringify(fabricate_package(seed+i,length,base,gen_IntRange(0,5),gen_IntRange(0,5)))+",";
     }
-    return gson;
+    return gson+"}";
 }
-fs.writeFile('user.json', fabricate_Multipackages(1000,1123131,10,16,5), (err) => {
+fs.writeFile('user.json', fabricate_Multipackages(2,32923132619,16,16,5), (err) => {
     if (err) {
         throw err;
     }

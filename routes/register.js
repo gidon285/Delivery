@@ -45,9 +45,6 @@ function updateUsers(users){
 router.post('/s', async(req, res) => {
     var _data = await getUsers();
     var _userdata = JSON.parse(_data);
-    var asdf = await checkUser();
-    console.log(asdf);
-    console.log("ASDasd");
     var answer = {
         name: req.body.name,
         pass1: req.body.pass1,
