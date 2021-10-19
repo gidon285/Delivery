@@ -11,7 +11,10 @@ const client = redis.createClient(6379,'127.0.0.1');
 module.exports = router;
 router.use(express.static(path.join(__dirname,'public/css')));
 
-router.get('/', async (req, res,next) => {
+router.post('/login', async (req, res) => {
+    console.log("#4224");
+    res.set("Connection", "close");
+    res.send("ads");
     // var _data = await getUserData('users');
     // var _userdata = JSON.parse(_data);
     // var answer = {
@@ -31,14 +34,26 @@ router.get('/', async (req, res,next) => {
     //     }else {
     //         console.log("cant find user");
     //     }
-    next("username");
     // }
 })
-function next(){
-    router.render("dashboard");
-}
+router.get('/dashboard',async (req,res)=>{
+    console.log("dsa2213");
+    res.render('./pages/dashboard');
+});
+router.get('/profile',async (req,res)=>{
+    res.render('./pages/profie');
+});
+router.get('/help',async (req,res)=>{
+    res.render('./pages/profie');
+});
+router.get('/map-google',async (req,res)=>{
+    res.render('./pages/profie');
+});
+router.get('/deliveries',async (req,res)=>{
+    res.render('./pages/profie');
+});
 router.get('/register', (req, res) => {
-    res.render('/pages/register',{temp:'aaa'});
+    res.render('/pages/register');
 });
 function getUserData(key){
     return new Promise((res,rej) =>{

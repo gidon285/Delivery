@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords"
+            content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, materialpro admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, materialpro admin lite design, materialpro admin lite dashboard bootstrap 5 dashboard template">
+        <meta name="description"
+            content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        <meta name="robots" content="noindex,nofollow">
+        <title>LEG - DELIVERY</title>
+        <!-- 1 dash -->
+        <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/icon.png">
+        <!-- chartist CSS -->
+        <link href="/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+        <link href="/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+        <link href="/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+        <!--This page css - Morris CSS -->
+        <link href="/plugins/c3-master/c3.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/style.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <!-- CSS Files -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+    
+    
+    </head>
+<body>
+
+
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand ms-4" href="dashboard.html">
+                        <!-- Logo icon -->
+                        <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
+                        </span>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
+                            <!-- dark Logo text -->
+                            LEG-Delivery
+
+                        </span>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div  style="background-color: lightskyblue;">
+
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="dashboard.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
+                                    class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="profile.html" aria-expanded="false">
+                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="deliveries.html" aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery"></i><span
+                                    class="hide-menu">Deliveries</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="map-google.html" aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
+                                    class="hide-menu">Google Map</span></a></li>
+                        <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="help.html" aria-expanded="false"><i
+                                    class="mdi me-2 mdi-help-circle" style="color: oldlace;"></i><span class="hide-menu" style="color: oldlace;">Help</span></a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+            <div class="sidebar-footer">
+                <div class="row">
+                    <div class="col-4 link-wrap">
+                        <!-- item-->
+                        <a href="login.html" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                                class="mdi mdi-power">Exit</i> </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+            
+
+
+
+<center>
+        <p id="demo"></p>
+        <script >
+
+        document.getElementById("demo").innerHTML = localStorage.getItem("username");
+        </script>
+
+
+<p id="demo2"></p>
+        <div class="page-wrapper" onload="myFunction()">
+
+            <script >
+                document.getElementById("demo2").innerHTML ="22222 ";
+            </script>
+        </div>
+
+
+
+</center> 
+
+
+
+        <div class="page-wrapper">
+
+        </div>
+        
+</body>
+</html>

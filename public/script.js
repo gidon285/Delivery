@@ -53,22 +53,19 @@ function AteempetSignup(){
   }
 }  
 function AteempetLogin(){
-  // data = {name:document.getElementById('user').value,
-  //         pass1:document.getElementById('pass').value};
-  // let request = new XMLHttpRequest();
-  // request.open("POST", 'http://localhost:3000/register/s',true);
-  // request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-  // request.send(JSON.stringify(data));
-  // request.onreadystatechange = function() {
-  // if (request.readyState === 4) {
-  //   var jsonrespons = JSON.parse(request.response);
-  //   if( jsonrespons.succ === ""){
-  //     document.getElementById('modal-tile').innerHTML="Error!";
-  //     document.getElementById('modal-message').innerHTML= jsonrespons.err;
-  //   }else{
-  //     document.getElementById('modal-tile').innerHTML="Thanke you for Signing up!"
-  //     document.getElementById('modal-message').innerHTML= jsonrespons.succ;
-  //   }
-  //   }
-  // }
+  let request = new XMLHttpRequest();
+  request.open("POST", 'http://localhost:3000/dashboard/login',true);
+  request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+  request.send("Adsdas");
+  request.onreadystatechange = function() {
+  if (request.readyState === 4) {
+        let clossebutton = document.querySelectorAll('[data-close-button]')
+        clossebutton.forEach(button =>{
+          const modal2 = button.closest('.Mymodal')
+          closeModal(modal2)
+        })
+        document.getElementById("accepted").submit();
+    }
+  }
+  
 }  
