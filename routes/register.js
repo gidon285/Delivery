@@ -25,14 +25,6 @@ function getUsers(){
         })
     });
 }
-function checkUser(){
-    return new Promise((res,rej) =>{
-        client.json_get(`current`, function (err, value) {
-            if (err) rej(err);
-            res(value)
-        })
-    });
-}
 function updateUsers(users){
     return new Promise((res,rej) =>{
         client.json_set(`users`,".", function (err, value) {
