@@ -56,7 +56,7 @@ function AteempetLogin(){
   var data = {name:document.getElementById('user').value,
               pass:document.getElementById('password').value};
   let request = new XMLHttpRequest();
-  request.open("POST", 'http://localhost:3000/dashboard/login',true);
+  request.open("POST", 'http://localhost:3000/login',true);
   request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
   request.send(JSON.stringify(data));
   request.onreadystatechange = function() {

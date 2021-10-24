@@ -1,32 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, materialpro admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, materialpro admin lite design, materialpro admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-        content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
-    <meta name="robots" content="noindex,nofollow">
-    <title>LEG - DELIVERY</title>
-    <!-- 1 dash -->
-    <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/icon.png">
-    <!-- chartist CSS -->
-    <link href="/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <!--This page css - Morris CSS -->
-    <link href="/plugins/c3-master/c3.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/style.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <!-- CSS Files -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEG - DELIVERY</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">        
+  <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
+
 
     <style>
       .button {
@@ -56,127 +37,107 @@
       </style>
 </head>
 <body>
-
-
-
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    <!-- Main wrapper -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand ms-4" href="dashboard.html">
-                        <!-- Logo icon -->
-                        <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
-                        </span>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
-                            <!-- dark Logo text -->
-                            LEG-Delivery
 
-                        </span>
-                    </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
+                <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                        <div class="navbar-header">
+                            <!-- Logo -->
+                            <a class="navbar-brand ms-4">
+                                <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
+                                </span>
+                                <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
+                                    LEG-Delivery
+                                </span>
+                            </a>
+                        </div>
+                        <div  style="background-color: lightskyblue;">
+                        </div>
+                    </nav></button></form>
+            </header>
+            <!-- End Topbar header -->
 
+            <!-- Left Sidebar -->
+            <aside  class="left-sidebar" data-sidebarbg="skin6">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item"> 
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <i class="mdi me-2 mdi-gauge"></i><span
+                                            class="hide-menu">Dashboard</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/profile" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px;  width: 200px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false">
+                                        <i class="mdi me-2 mdi-account-check" style="color: oldlace;"></i><span class="hide-menu" style="color: oldlace;">Profile</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/deliveries" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery"></i><span
+                                        class="hide-menu">Deliveries</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/analytical" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                              <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                      aria-expanded="false"><i class="mdi me-2 mdi-trending-up"></i><span
+                                          class="hide-menu">Analytical</span></a></li>
+                          </button></form>
+                            <form action="/dashboard/map-google" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
+                                            class="hide-menu">Google Map</span></a></li>
+                                        </button></form>
+                            <form action="/dashboard/help" method="get"> <button type="submit" style="background: none; border: none; outline:none;"> 
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a></li>
+                            </button></form>
+                        </ul>
+                    </nav>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div  style="background-color: lightskyblue;">
-
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="dashboard.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="profile.html" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check" style="color: oldlace;"></i><span class="hide-menu" style="color: oldlace;">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="deliveries.html" aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery"></i><span
-                                    class="hide-menu">Deliveries</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="map-google.html" aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
-                                    class="hide-menu">Google Map</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="help.html" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a>
-                        </li>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-            <div class="sidebar-footer">
-                <div class="row">
-                    <div class="col-4 link-wrap">
-                        <!-- item-->
-                        <a href="login.html" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                                class="mdi mdi-power">Exit</i> </a>
+                <div class="sidebar-footer">
+                    <div class="row">
+                        <div class="col-4 link-wrap">
+                            <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                                    class="mdi mdi-power">Exit</i> </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </aside>
-            
+            </aside>
+            <!-- End Sidebar scroll-->    
+    </div>
 
 
 
-
-        <div class="page-wrapper">
+        <div class="page-wrapper" style="left: 230px; ">
         <div class="content">            
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h5 class="title">Edit Profile</h5>
+                  <h1 class="title">Edit Profile</h1>
 
                 </div>
                 <div class="card-body">
-                  <form>
+                <form>
                     <div class="row">
-                      <div class="col-md-5 pr-2">
+                      <div class="col-md-5 pr-2" style="width: 350px;">
                         <div class="form-group">
                           <label>Company (disabled)</label>
                           <input type="text" class="form-control" disabled="" placeholder="Company" value="LEG-Delivery">
                         </div>
                       </div>
-                      <div class="col-md-3 px-1">
+                      <div class="col-md-3 px-1" style="width: 350px;">
                         <div class="form-group">
                           <label>Username</label>
                           <input type="text" class="form-control" disabled="" placeholder="Username" value="">
                         </div>
                       </div>
-                      <div class="col-md-4 pl-1">
+                      <div class="col-md-4 pl-1" style="width: 350px;">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
                           <input type="email" class="form-control" placeholder="Email">
@@ -184,13 +145,13 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 pr-1">
+                      <div class="col-md-6 pr-1" style="width: 450px;">
                         <div class="form-group">
                           <label>First Name</label>
                           <input type="text" class="form-control" placeholder="Company" value="Mike">
                         </div>
                       </div>
-                      <div class="col-md-6 pl-1">
+                      <div class="col-md-6 pl-1" style="width: 450px;">
                         <div class="form-group">
                           <label>Last Name</label>
                           <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
@@ -198,7 +159,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-12" style="width: 700px;">
                         <div class="form-group">
                           <label>Address</label>
                           <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
@@ -206,19 +167,19 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4 pr-1">
+                      <div class="col-md-4 pr-1" style="width: 350px;">
                         <div class="form-group">
                           <label>City</label>
                           <input type="text" class="form-control" placeholder="City" value="Mike">
                         </div>
                       </div>
-                      <div class="col-md-4 px-1">
+                      <div class="col-md-4 px-1" style="width: 350px;">
                         <div class="form-group">
                           <label>Country</label>
                           <input type="text" class="form-control" placeholder="Country" value="Andrew">
                         </div>
                       </div>
-                      <div class="col-md-4 pl-1">
+                      <div class="col-md-4 pl-1" style="width: 350px;">
                         <div class="form-group">
                           <label>Postal Code</label>
                           <input type="number" class="form-control" placeholder="ZIP Code">
@@ -226,19 +187,19 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-12" style="width: 1100px;">
                         <div class="form-group">
                           <label>About Me</label>
                           <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-4 align-self-right">
-                      <div class="text-end upgrade-btn">
+                    <div class="col-md-6 col-4 align-self-right" >
+                      <div class="text-end upgrade-btn" style="width: 550px;">
                         <button class="button button1">Save data</button> 
 
                       </div>
-                  </div>
+                  
                   </form>
                 </div>
               </div>

@@ -1,41 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
-const redis = require('redis');
-var bodyParser = require('body-parser');
-rejson = require('redis-rejson');
-
-rejson(redis);
-const client = redis.createClient(6379,'127.0.0.1');
+const bodyParser = require('body-parser')
 module.exports = router;
-router.use(express.static(path.join(__dirname,'public/css')));
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:true}));
 
-
-
-router.get('',async (req, res,next) => {
-    res.render(path.join(__dirname,'..','/views/pages/register'),{temp:'ddsasada'});
+router.get('',async (req, res) => {
+    res.render(path.join(__dirname,'..','/views/pages/register'));
 });
-function getUsers(){
-    return new Promise((res,rej) =>{
-        client.json_get(`users`, function (err, value) {
-            if (err) rej(err);
-            res(value)
-        })
-    });
-}
-function updateUsers(users){
-    return new Promise((res,rej) =>{
-        client.json_set(`users`,".", function (err, value) {
-            if (err) rej(err);
-            res(users)
-        })
-        client.json_set(`users`,".", users)
-    });
-}
+
 router.post('/s', async(req, res) => {
-    var _data = await getUsers();
+    var _data =  await redislistener.getData('users')
     var _userdata = JSON.parse(_data);
     var answer = {
         name: req.body.name,
@@ -61,7 +38,7 @@ router.post('/s', async(req, res) => {
             }
         }
     }
-    if(  answer.pass1 !=  answer.pass2){
+    if( answer.pass1 !=  answer.pass2){
         response.err='Passwords doesn\'t match, Please retype.';
         res.send(response);
         return;

@@ -71,7 +71,7 @@ body {
   color: #222;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  background: linear-gradient(to right,rgb(173, 222, 241) ,rgb(98, 158, 248)) ;
+  background: linear-gradient( to left,rgb(197, 217, 247) ,#26c6da) ;
 }
 #login-box {
   position: relative;

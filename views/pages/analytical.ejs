@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LEG - DELIVERY</title>
+        <link rel="icon" type="image/png" href="/img/icon.png">        
+        <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
+
+    </head>
+<body>
+    <!-- Main wrapper -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+
+            <!-- Topbar header - style you can find in pages.scss -->
+            <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
+                <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                        <div class="navbar-header">
+                            <!-- Logo -->
+                            <a class="navbar-brand ms-4">
+                                <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
+                                </span>
+                                <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
+                                    LEG-Delivery
+                                </span>
+                            </a>
+                        </div>
+                        <div  style="background-color: lightskyblue;">
+                        </div>
+                    </nav></button></form>
+            </header>
+            <!-- End Topbar header -->
+
+            <!-- Left Sidebar -->
+            <aside  class="left-sidebar" data-sidebarbg="skin6">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item"> 
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <i class="mdi me-2 mdi-gauge"></i><span
+                                            class="hide-menu">Dashboard</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/profile" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false">
+                                        <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/deliveries" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery"></i><span
+                                        class="hide-menu">Deliveries</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/analytical" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                                <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px; width: 200px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-trending-up" style="color: oldlace;"></i><span
+                                            class="hide-menu" style="color: oldlace;">Analytical</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/map-google" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
+                                            class="hide-menu">Google Map</span></a></li>
+                            </button></form>                                        
+                            <form action="/dashboard/help" method="get"> <button type="submit" style="background: none; border: none; outline:none; "> 
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i
+                                            class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a></li>
+                            </button></form>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="row">
+                        <div class="col-4 link-wrap">
+                            <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                                    class="mdi mdi-power">Exit</i> </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- End Sidebar scroll-->    
+    </div>
+
+    <div class="page-wrapper" style="left: 530px; ">
+        <p id="demo"></p>
+        
+        
+        <form method="get" action="/dashboard">
+                <p id="demo"></p>
+
+        <script>    
+            var data = document.getElementById('user').value;
+            
+            document.getElementById("demo").innerHTML = data;
+        </script>
+        </form>
+
+    </div>
+</body>
+</html>

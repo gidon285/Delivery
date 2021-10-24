@@ -1,21 +1,23 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const path = require('path');
+const dashboard = require(__dirname+'/routes/dashboard.js');
+const login = require(__dirname+'/routes/login.js');
+const register = require(__dirname+'/routes/register.js');
+const generator = require('./generator.js');
+const firebase = require('./Firebase/firebase.js')
 const port = 3000;
 
-const dashrouter = require(__dirname+'/routes/dash.js');
-const registerrouter = require(__dirname+'/routes/register.js');
-
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname,'/public')));
 app.set('view engine', 'ejs');
 
-app.use('/dashboard',dashrouter);
-app.use('/register',registerrouter);
+app.use('/login',login);
+app.use('/dashboard',dashboard);
+app.use('/register',register);
 
 app.get('', (req, res) => {
     res.render(path.join(__dirname+ '/views/pages/login'))
 })
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

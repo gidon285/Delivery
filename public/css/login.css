@@ -72,7 +72,7 @@ body {
     margin-left: auto;
     margin-right: auto; 
     font-family: Calibri, Helvetica, sans-serif;
-    background: linear-gradient(to right,rgb(173, 222, 241) ,rgb(98, 158, 248)) ;
+    background: linear-gradient( to left,rgb(197, 217, 247) ,#26c6da) ;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

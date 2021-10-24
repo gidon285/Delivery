@@ -1,6 +1,7 @@
 const faker = require('faker');
 const QRCode = require('qrcode');
-var fs = require('fs');
+const genSender = require('./Redis/redisSender');
+const fs = require('fs');
 // lists
 const _pgender_type = ["Male","Female"];
 const _edomain = ["@gmail.com", "@yahoo.com","@outlook.com"
@@ -155,7 +156,7 @@ const _package= {
 function gen_Packageinfo(){
     var _dnumber = gen_IntRange(0,8);
     var _department_name = _package.department_name[_dnumber];
-    if(0<=_dnumber || _dnumber<=2){
+    if(0<=_dnumber && _dnumber<=2){
         var _price = gen_IntRange(1,75);
         var _taxes = 0;
         var _shipment_cost = gen_IntRange(10,25);
@@ -173,14 +174,14 @@ function gen_Packageinfo(){
         var _shipment_cost = gen_IntRange(50,150);
         var _size = "large";
     }
-    return ("\"department_name\":\""+_package.department_name[gen_IntRange(0,8)]+"\","
+    return ("\"department_name\":\""+_package.department_name[_dnumber]+"\","
             +"\"product\": \""+_package.product[_department_name][gen_IntRange(0,4)]+"\","
             +"\"color\": \""+ _package.color[gen_IntRange(0,15)]+"\","
             +"\"product_price\": \"" +_price+"$\","
             +"\"taxes\": \"" +_taxes+"$\","
             +"\"shipment_cost\": \"" +_shipment_cost+"$\","
             +"\"size\": \""+_size+"\","
-            +"\"description\": \""+_package.description[gen_IntRange(0,11)]+"\""
+            +"\"description\": \""+_package.description[gen_IntRange(0,11)]                                        
     );
 }  
 /**
@@ -222,14 +223,14 @@ function gen_Sender_Address() {
                 +"\",\"city\": \""+_city +"\",\"street_name\": \""+ faker.address.streetName() 
                 +"\",\"street_num\": \""+ gen_Num_size(10000).toString() 
                 +"\",\"zipCode\": \""+faker.address.zipCode()
-                +"\",\"phone\": \""+faker.phone.phoneNumberFormat(1)+"\"");
+                +"\",\"phone\": \""+faker.phone.phoneNumberFormat(1)   );                                      
     }
     _con = _address.country[_connum];
     _city = _address[_con].city_name[gen_IntRange(0,5)];
     return ("\"country\": \""+_con+"\",\"state/region\": \"n/a\""+",\"city\": \""
             +_city+"\",\"street_name\": \""+ faker.address.streetName()+"\",\"street_num\": \""
             +gen_Num_size(10000).toString() +"\",\n\t\"zipCode\": \""+faker.address.zipCode()+"\","+"\"phone\": \""
-            +faker.phone.phoneNumberFormat(1)+"\""
+            +faker.phone.phoneNumberFormat(1)                                         
             );
 }
 /**
@@ -240,11 +241,11 @@ function gen_Sender_Address() {
 function gen_Reciver_Address() {
     _state = _address[_address.country[11]].state_Name[gen_IntRange(0,5)];
     _city = _address[_address.country[11]].state[_state][gen_IntRange(0,3)];
-    _phone ="05"+gen_IntRange(0,8).toString()+'-'+lfsr(gen_IntRange(11111,99999), 7, 10).slice(0,7)+"\"";
+    _phone ="05"+gen_IntRange(0,8).toString()+'-'+lfsr(gen_IntRange(11111,99999), 7, 10).slice(0,7)                                         
     return ("\"country\": \""+_address.country[11]+"\",\"state/region\":\""+_state+"\",\"city\": \""
             +_city+"\",\"street_name\": \""+ _address[_address.country[11]].street[gen_IntRange(0,22)]+"\",\"street_num\": \""
             +gen_Num_size(100).toString() +"\",\n\t\"zipCode\": \""+faker.address.zipCode()+"\","+"\"phone\": \""
-            +_phone+""
+            +_phone                                       
             );
 }
 /**
@@ -258,7 +259,7 @@ function gen_Person(){
     var _pemail = _pname+_plast+gen_Num_size(100).toString()+_edomain[gen_IntRange(0,10)];
     return ("\"first_name\": \""+_pname+"\",\"last_name\":\""+_plast
             +"\",\"gender\": \""+_pgender_type[_gender]+"\",\"email_adress\": \""
-            +_pemail.toLocaleLowerCase()+"\""
+            +_pemail.toLocaleLowerCase()                                          
             );
 }
 /**
@@ -295,7 +296,7 @@ function json_toText(fs,jsonData){
  * @param id the package ID. 
 */
 function qr_to_image(id){
-    QRCode.toFile(__dirname+'/qr/pqrcode.png',id,
+    QRCode.toFile(__dirname+`/public/packages/${id}.png`,id,
                 {color: {dark: '#0000',light: '#ffff'}},
                 function (err) {if (err) throw err})
 }
@@ -316,53 +317,17 @@ function gen_packageString(id,arrival,quantity){
             + _c_date.getMinutes() + ":" 
             + _c_date.getSeconds()+" GMT+0300 (Israel Daylight Time)";
 
-    var items = "{"+gen_Packageinfo()+"}"
+    for(var i =0; i< quantity; i++){
 
-    for (let i = 1; i < quantity; i++) {
-            items += ",{"+gen_Packageinfo()+"}"
     }
-    return ("{\"package_id\":\""+id+"\","
-    +"\"package\":"+""
-    +"{\"package_info\":["+items+"],"
-    +"\"sender_info\":[{"+gen_Person()+"}],"
-    +"\"sender_address\":[{"+gen_Sender_Address()+"}],"
-    +"\"reciver_info\":[{"+gen_Person()+"}]," 
-    +"\"reciver_address\":[{"+gen_Reciver_Address()+"}],"
-    +"\"arrival_date\":"+"\""+arrival+"\","
-    +"\"sent_date\":\""+ _date+"\"}}");
-    
-}
-/**
- *   This function is the main fuction, it will generate a random package including all of its aspects. 
- *   Sending date will be defualting as the current day.
- *   given the next variable the json file will represent:
- *   A sender and his\hers address and info,
- *   The recipiente address and info,
- *   a QRCode with and image, and arrivale and departore time,
-* @param  seed an Integer that will be the seed for the lfsr funtion to generate the hex based tracking number.
-* @param  length the length of the disierd tracking number.
-* @param  base  currently an hex based.
-* @param  duration [OPTINAL] if given the duration of the arrivale will be defined from 1 - 5, from short to long,
-                    defualting as shortest.
-* @return      return a json file that represents the package.
-*/
-function fabricate_package(seed,length,base,duration,quantity){
-    var _pid = lfsr(seed,length,base);
-    // qr_to_image(_pid);
-    switch (duration) {
-        default: 
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(1))));
-        case 1:
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(duration*2),quantity)));
-        case 2:
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(7),quantity)));
-        case 3:
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(14),quantity)));
-        case 4:
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(25),quantity)));
-        case 5:
-            return (JSON.parse(gen_packageString(_pid,faker.date.soon(40),quantity)));
-      }
+    return (   "{\"package_id\":\""+id+"\","
+                    + gen_Packageinfo() +"\","
+                    + gen_Person()+"\","
+                    + gen_Sender_Address() + "\","
+                    + gen_Person()+"\","
+                    + gen_Reciver_Address()+"\","
+                    +"\"arrival_date\":"+"\""+arrival+"\","
+                    +"\"sent_date\":\""+ _date+"\"}");
 }
 /**
  * If needed to be used to fabricate massive amounts of packages, use this function.
@@ -372,26 +337,65 @@ function fabricate_package(seed,length,base,duration,quantity){
  *   A sender and his\hers address and info,
  *   The recipiente address and info,
  *   a QRCode with and image, and arrivale and departore time,
-* @param  seed an Integer that will be the seed for the lfsr funtion to generate the hex based tracking number.
-* @param  length the length of the disierd tracking number.
-* @param  base  currently an hex based.
-* @param  duration [OPTINAL] if given the duration of the arrivale will be defined from 1 - 5, from short to long,
+* @param  {Number}seed an Integer that will be the seed for the lfsr funtion to generate the hex based tracking number.
+* @param  {Number}length the length of the disierd tracking number.
+* @param  {Number}base  currently an hex based.
+* @param  {Number}duration [OPTINAL] if given the duration of the arrivale will be defined from 1 - 5, from short to long,
                     defualting as shortest.
 * @return      return a json file that represents the package.
 */
-function fabricate_Multipackages(num,seed,length,base,quantity){
-    var gson="{"; 
-    for (let i = 0; i < num; i++) {
-        if(i == num-1){
-            gson += JSON.stringify(fabricate_package(seed+(i*2),length,base,gen_IntRange(0,5),gen_IntRange(0,5)));
-            break;
+function fabricate_Multipackages(num,seed,length,base,duration){
+    let packages = "{\"package\":[";
+    for(var i = 0; i < num ; i++){
+        var _pid = lfsr(seed*(i+1*i+1),length,base);
+        if(i == num -1 ){
+            packages += gen_packageString(_pid,faker.date.soon(1))+"]}";
+            return packages;
         }
-        gson += JSON.stringify(fabricate_package(seed+i,length,base,gen_IntRange(0,5),gen_IntRange(0,5)))+",";
+        switch (duration) {
+            default: 
+                packages += gen_packageString(_pid,faker.date.soon(1))+",";
+            case 1:
+                packages += gen_packageString(_pid,faker.date.soon(duration*2))+",";
+            case 2:
+                packages += gen_packageString(_pid,faker.date.soon(7))+",";
+            case 3:
+                packages += gen_packageString(_pid,faker.date.soon(14))+",";
+            case 4:
+                packages += gen_packageString(_pid,faker.date.soon(25))+",";
+            case 5:
+                packages += gen_packageString(_pid,faker.date.soon(40))+",";
+          }
     }
-    return gson+"}";
+    return packages
 }
-fs.writeFile('user.json', fabricate_Multipackages(2,32923132619,16,16,5), (err) => {
-    if (err) {
-        throw err;
-    }
-});
+/**
+ * save package to a simple text file(json), to the current file location.
+* @param  name  the name of the json being saved.
+* @param  data  the actual sting to be saved.
+* @param  err   callvack function for error throwing
+* @return       returns a true false, in case of an error thorws.
+*/
+function packToFile(num){
+    var json =JSON.parse(fabricate_Multipackages(num,32923132619,16,16,5));
+    var prettyJSON = JSON.stringify(json ,null,2);
+    var id = json.package[0].package_id;
+    qr_to_image(id);
+    fs.writeFile(__dirname+`/public/packages/${id}.json`, prettyJSON, (err) => {
+        if (err) {
+            throw err;
+        }
+    });
+    return id;
+}
+run();
+function mainFunction() {
+    // var pack = fabricate_Multipackages(1,32923132619,16,16,5);
+    // var id = packToFile(2);
+    // genSender.passPack('pack',pack);
+};
+function run() {
+    setInterval(mainFunction, 5000);
+};
+
+module.exports={fabricate_Multipackages};

@@ -4,135 +4,163 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords"
-            content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, materialpro admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, materialpro admin lite design, materialpro admin lite dashboard bootstrap 5 dashboard template">
-        <meta name="description"
-            content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
-        <meta name="robots" content="noindex,nofollow">
         <title>LEG - DELIVERY</title>
-        <!-- 1 dash -->
-        <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-        <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="/img/icon.png">
-        <!-- chartist CSS -->
-        <link href="/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-        <link href="/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-        <link href="/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-        <!--This page css - Morris CSS -->
-        <link href="/plugins/c3-master/c3.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="css/style.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <!-- CSS Files -->
-        <link href="/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
-    
-    
+        <link rel="icon" type="image/png" href="/img/icon.png">        
+        <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
+
     </head>
 <body>
-
-
-
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    <!-- Main wrapper -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand ms-4" href="dashboard.html">
-                        <!-- Logo icon -->
-                        <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
-                        </span>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
-                            <!-- dark Logo text -->
-                            LEG-Delivery
 
-                        </span>
-                    </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <header class="topbar" style="border-radius: 5px; background-color: mediumturquoise;">
+                <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                        <div class="navbar-header">
+                            <!-- Logo -->
+                            <a class="navbar-brand ms-4">
+                                <span class="mdi me-2  mdi-airplane-takeoff" style="font-size: 30px; color: black;">
+                                </span>
+                                <span class="logo-text" style="font-size: 20px; color: black; font-weight: bold;">
+                                    LEG-Delivery
+                                </span>
+                            </a>
+                        </div>
+                        <div  style="background-color: lightskyblue;">
+                        </div>
+                    </nav></button></form>
+            </header>
+            <!-- End Topbar header -->
 
+            <!-- Left Sidebar -->
+            <aside  class="left-sidebar" data-sidebarbg="skin6">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <form action="/dashboard" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item"> 
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                        <i class="mdi me-2 mdi-gauge"></i><span
+                                            class="hide-menu">Dashboard</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/profile" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false">
+                                        <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/deliveries" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                            <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px;  width: 200px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery" style="color: oldlace;"></i><span
+                                        class="hide-menu" style="color: oldlace;">Deliveries</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/analytical" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-trending-up"></i><span
+                                            class="hide-menu">Analytical</span></a></li>
+                            </button></form>
+                            <form action="/dashboard/map-google" method="get"> <button type="submit" style="background: none; border: none; outline:none; ">
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
+                                            class="hide-menu">Google Map</span></a></li>
+                                        </button></form>
+                            <form action="/dashboard/help" method="get"> <button type="submit" style="background: none; border: none; outline:none;"> 
+                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                        aria-expanded="false"><i class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a></li>
+                            </button></form>
+                        </ul>
+                    </nav>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div  style="background-color: lightskyblue;">
-
+                <div class="sidebar-footer">
+                    <div class="row">
+                        <div class="col-4 link-wrap">
+                            <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                                    class="mdi mdi-power">Exit</i> </a>
+                        </div>
+                    </div>
                 </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="dashboard.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="profile.html" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="deliveries.html" aria-expanded="false"><i class="mdi me-2 mdi-truck-delivery" style="color: oldlace;"></i><span
-                                    class="hide-menu" style="color: oldlace;">Deliveries</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="map-google.html" aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
-                                    class="hide-menu">Google Map</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="help.html" aria-expanded="false"><i
-                                    class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a>
-                        </li>
-                    </ul>
+            </aside>
+            <!-- End Sidebar scroll-->    
+    </div>
 
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-            <div class="sidebar-footer">
-                <div class="row">
-                    <div class="col-4 link-wrap">
-                        <!-- item-->
-                        <a href="login.html" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                                class="mdi mdi-power">Exit</i> </a>
+
+
+    <div class="page-wrapper" style="left: 250px; width: 1000px;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Deliveries</h4>
+                            <div class="table-responsive" >
+                                <table class="table user-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Shipping ID</th>
+                                            <th class="border-top-0">QRCode</th>                                            
+                                            <th class="border-top-0">Send from</th>
+                                            <th class="border-top-0">First name</th>
+                                            <th class="border-top-0">Last name</th>
+                                            <th class="border-top-0">Phone</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Products</th>
+                                            <th class="border-top-0">Price</th>
+                                            <th class="border-top-0">Taxes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>av234sd</td>
+                                            <td > <img src="https://qrcode.tec-it.com/API/QRCode?data=QR+Code+Generator+by+TEC-IT" style="width: 50px; height: 50px;" alt=""></td>
+                                            <td>Israel</td>
+                                            <td>Liad</td>
+                                            <td>Nagi</td>
+                                            <td>054-868515</td>
+                                            <td>liadnagi@gmail.com</td>
+                                            <td>{a, b, c, v}</td>
+                                            <td>100$</td>
+                                            <td>10$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Deshmukh</td>
+                                            <td>Gaylord</td>
+                                            <td>@Ritesh</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Sanghani</td>
+                                            <td>Gusikowski</td>
+                                            <td>@Govinda</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Roshan</td>
+                                            <td>Rogahn</td>
+                                            <td>@Hritik</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Joshi</td>
+                                            <td>Hickle</td>
+                                            <td>@Maruti</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Nigam</td>
+                                            <td>Eichmann</td>
+                                            <td>@Sonu</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </aside>
-            
-
-
-
-
-
-
-
-        <div class="page-wrapper">
-
         </div>
+
+    
         
 </body>
 </html>
