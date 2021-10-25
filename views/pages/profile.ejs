@@ -7,6 +7,7 @@
   <title>LEG - DELIVERY</title>
   <link rel="icon" type="image/png" href="/img/icon.png">        
   <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
+  <script defer src="script.js"></script>
 
 
     <style>
@@ -72,7 +73,7 @@
                                         <i class="mdi me-2 mdi-gauge"></i><span
                                             class="hide-menu">Dashboard</span></a></li>
                             </button></form>
-                            <form action="/dashboard/profile" method="get"><button type="submit" style="background: none; border: none; outline:none;">
+                            <form action="/dashboard/profile" method="get" onclick="getInfo()"><button type="submit" style="background: none; border: none; outline:none;">
                                 <li class="sidebar-item" style="background-color: mediumturquoise; border-radius: 5px;  width: 200px; "> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                         aria-expanded="false">
                                         <i class="mdi me-2 mdi-account-check" style="color: oldlace;"></i><span class="hide-menu" style="color: oldlace;">Profile</span></a></li>
@@ -140,7 +141,7 @@
                       <div class="col-md-4 pl-1" style="width: 350px;">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email">
+                          <input type="email" id ="emailPlaceholder" class="form-control" placeholder="Email" value="">
                         </div>
                       </div>
                     </div>

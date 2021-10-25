@@ -124,7 +124,6 @@ const _package= {
         Tools:["Hammer","Screw-driver","Electric-screw-driver","Drill","Ladder",],
         Beauty:["Makeup","Skin Care","Cream","Shampo","Lipstick",],
         Clothing:["Shirt","Pants","Shoes","Gloves","Hat"],
-
         Electronics:["Camera","Cell Phone","Headphones","Gps","Television",],
         Jewelery:["Neckless","Ring","Bracelet","Glasses","Earrings"],
         Sports:["Ball","Bike","Running shose","Dryfit-shirt","Soccer shose"],
@@ -155,33 +154,53 @@ const _package= {
 */
 function gen_Packageinfo(){
     var _dnumber = gen_IntRange(0,8);
-    var _department_name = _package.department_name[_dnumber];
+    var num =  gen_IntRange(1,6);  
     if(0<=_dnumber && _dnumber<=2){
-        var _price = gen_IntRange(1,75);
+        var _price = (gen_IntRange(1,75)*num).toFixed(0);
         var _taxes = 0;
-        var _shipment_cost = gen_IntRange(10,25);
+        var _shipment_cost = (gen_IntRange(10,25)*num).toFixed(0);
         var _size = "small";
     }
     else if(3<=_dnumber || _dnumber<=4){
-        var _price = gen_IntRange(75,500);
-        var _taxes = (0.17*_price);
-        var _shipment_cost = gen_IntRange(25,50);
+        var _price = (gen_IntRange(75,500)*num).toFixed(0);
+        var _taxes = ((0.17*_price)*num).toFixed(0);
+        var _shipment_cost = (gen_IntRange(25,50)*num).toFixed(0);
         var _size = "medium";
     }
     else{
-        var _price = gen_IntRange(500,2500);
-        var _taxes = 50;
-        var _shipment_cost = gen_IntRange(50,150);
+        var _price = (gen_IntRange(500,2500)*num).toFixed(0);
+        var _taxes = (50*num).toFixed(0);
+        var _shipment_cost = (gen_IntRange(50,150)*num).toFixed(0);
         var _size = "large";
     }
-    return ("\"department_name\":\""+_package.department_name[_dnumber]+"\","
-            +"\"product\": \""+_package.product[_department_name][gen_IntRange(0,4)]+"\","
-            +"\"color\": \""+ _package.color[gen_IntRange(0,15)]+"\","
+    var _department_name = _package.department_name[_dnumber];
+    var _departments ="[\""+_package.department_name[_dnumber]+"\",";   // somthing. . . . . . . . . . . 
+    var _items="[\""+_package.product[_department_name][gen_IntRange(0,4)]+"\",";
+    var colors ="[\""+ _package.color[gen_IntRange(0,15)]+"\",";
+         
+    for(let i = 0; i <num; i++){
+        if( i == num-1){
+            _dnumber = gen_IntRange(0,8);
+            _department_name = _package.department_name[_dnumber];
+            _departments += "\""+_package.department_name[_dnumber] +"\"]";
+            _items += "\""+_package.product[_department_name][gen_IntRange(0,4)]+"\"]";
+            colors += "\""+_package.color[gen_IntRange(0,15)]+"\"]";
+            break;
+        }
+        _dnumber = gen_IntRange(0,8)
+        _department_name = _package.department_name[_dnumber];
+        _departments += "\""+_package.department_name[_dnumber] +"\",";
+        _items += "\""+_package.product[_department_name][gen_IntRange(0,4)]+"\",";
+        colors += "\""+_package.color[gen_IntRange(0,15)]+"\",";
+    }
+    return ("\"department_names\":"+_departments+","
+            +"\"products\": "+_items+","
+            +"\"colors\": "+ colors+","
             +"\"product_price\": \"" +_price+"$\","
             +"\"taxes\": \"" +_taxes+"$\","
             +"\"shipment_cost\": \"" +_shipment_cost+"$\","
             +"\"size\": \""+_size+"\","
-            +"\"description\": \""+_package.description[gen_IntRange(0,11)]                                        
+            +"\"description\": \""+_package.description[gen_IntRange(0,11)]                                      
     );
 }  
 /**
@@ -219,17 +238,17 @@ function gen_Sender_Address() {
 
         _con = _con.includes('_') ? _con.replace('_', ' ') : _con;
         _state_name = _state_name.includes('_') ? _state_name.replace('_', ' ') : _state_name;
-        return ("\"country\": \""+_con+"\",\"state/region\": \"" + _state_name 
-                +"\",\"city\": \""+_city +"\",\"street_name\": \""+ faker.address.streetName() 
-                +"\",\"street_num\": \""+ gen_Num_size(10000).toString() 
-                +"\",\"zipCode\": \""+faker.address.zipCode()
-                +"\",\"phone\": \""+faker.phone.phoneNumberFormat(1)   );                                      
+        return ("\"sender country\": \""+_con+"\",\"sender state/region\": \"" + _state_name 
+                +"\",\"sender city\": \""+_city +"\",\"sender street_name\": \""+ faker.address.streetName() 
+                +"\",\"sender street_num\": \""+ gen_Num_size(10000).toString() 
+                +"\",\"sender zipCode\": \""+faker.address.zipCode()
+                +"\",\"sender phone\": \""+faker.phone.phoneNumberFormat(1));                                      
     }
     _con = _address.country[_connum];
     _city = _address[_con].city_name[gen_IntRange(0,5)];
-    return ("\"country\": \""+_con+"\",\"state/region\": \"n/a\""+",\"city\": \""
-            +_city+"\",\"street_name\": \""+ faker.address.streetName()+"\",\"street_num\": \""
-            +gen_Num_size(10000).toString() +"\",\n\t\"zipCode\": \""+faker.address.zipCode()+"\","+"\"phone\": \""
+    return ("\"sender country\": \""+_con+"\",\"sender state/region\": \"n/a\""+",\"sender city\": \""
+            +_city+"\",\"sender street_name\": \""+ faker.address.streetName()+"\",\"sender street_num\": \""
+            +gen_Num_size(10000).toString() +"\",\n\t\"sender zipCode\": \""+faker.address.zipCode()+"\","+"\"sender phone\": \""
             +faker.phone.phoneNumberFormat(1)                                         
             );
 }
@@ -242,9 +261,9 @@ function gen_Reciver_Address() {
     _state = _address[_address.country[11]].state_Name[gen_IntRange(0,5)];
     _city = _address[_address.country[11]].state[_state][gen_IntRange(0,3)];
     _phone ="05"+gen_IntRange(0,8).toString()+'-'+lfsr(gen_IntRange(11111,99999), 7, 10).slice(0,7)                                         
-    return ("\"country\": \""+_address.country[11]+"\",\"state/region\":\""+_state+"\",\"city\": \""
-            +_city+"\",\"street_name\": \""+ _address[_address.country[11]].street[gen_IntRange(0,22)]+"\",\"street_num\": \""
-            +gen_Num_size(100).toString() +"\",\n\t\"zipCode\": \""+faker.address.zipCode()+"\","+"\"phone\": \""
+    return ("\"reciver country\": \""+_address.country[11]+"\",\"reciver state/region\":\""+_state+"\",\"reciver city\": \""
+            +_city+"\",\"reciver street_name\": \""+ _address[_address.country[11]].street[gen_IntRange(0,22)]+"\",\"reciver street_num\": \""
+            +gen_Num_size(100).toString() +"\",\"reciver zipCode\": \""+faker.address.zipCode()+"\","+"\"reciver phone\": \""
             +_phone                                       
             );
 }
@@ -252,13 +271,27 @@ function gen_Reciver_Address() {
  *  This function will fabricate a random person, not given his place of birth, meaning not authentic.
  * @return A string representation of a person 
 */
-function gen_Person(){
+function gen_Reciver(){
     var _gender = gen_IntRange(0,1);
     var _pname = faker.name.firstName(_gender); 
     var _plast = faker.name.lastName();
     var _pemail = _pname+_plast+gen_Num_size(100).toString()+_edomain[gen_IntRange(0,10)];
-    return ("\"first_name\": \""+_pname+"\",\"last_name\":\""+_plast
-            +"\",\"gender\": \""+_pgender_type[_gender]+"\",\"email_adress\": \""
+    return ("\"reciver first_name\": \""+_pname+"\",\"reciver last_name\":\""+_plast
+            +"\",\"reciver gender\": \""+_pgender_type[_gender]+"\",\"reciver email_adress\": \""
+            +_pemail.toLocaleLowerCase()                                          
+            );
+}
+/**
+ *  This function will fabricate a random person, not given his place of birth, meaning not authentic.
+ * @return A string representation of a person 
+*/
+function gen_Sender(){
+    var _gender = gen_IntRange(0,1);
+    var _pname = faker.name.firstName(_gender); 
+    var _plast = faker.name.lastName();
+    var _pemail = _pname+_plast+gen_Num_size(100).toString()+_edomain[gen_IntRange(0,10)];
+    return ("\"sender first_name\": \""+_pname+"\",\"sender last_name\":\""+_plast
+            +"\",\"sender gender\": \""+_pgender_type[_gender]+"\",\"sender email_adress\": \""
             +_pemail.toLocaleLowerCase()                                          
             );
 }
@@ -295,10 +328,11 @@ function json_toText(fs,jsonData){
  * Saves a given ID num(hex) to a QRCode image.
  * @param id the package ID. 
 */
-function qr_to_image(id){
+async function qr_to_image(id){
     QRCode.toFile(__dirname+`/public/packages/${id}.png`,id,
                 {color: {dark: '#0000',light: '#ffff'}},
                 function (err) {if (err) throw err})
+    return 1;
 }
 /**
  * This fuction will get all of the other functions together for simplicity sake. 
@@ -322,9 +356,9 @@ function gen_packageString(id,arrival,quantity){
     }
     return (   "{\"package_id\":\""+id+"\","
                     + gen_Packageinfo() +"\","
-                    + gen_Person()+"\","
+                    + gen_Sender()+"\","
                     + gen_Sender_Address() + "\","
-                    + gen_Person()+"\","
+                    + gen_Reciver()+"\","
                     + gen_Reciver_Address()+"\","
                     +"\"arrival_date\":"+"\""+arrival+"\","
                     +"\"sent_date\":\""+ _date+"\"}");
@@ -376,26 +410,24 @@ function fabricate_Multipackages(num,seed,length,base,duration){
 * @param  err   callvack function for error throwing
 * @return       returns a true false, in case of an error thorws.
 */
-function packToFile(num){
-    var json =JSON.parse(fabricate_Multipackages(num,32923132619,16,16,5));
+async function packToFile(num){
+    var json =JSON.parse(fabricate_Multipackages(num,3292313261*gen_IntRange(2,3408),16,16,5));
     var prettyJSON = JSON.stringify(json ,null,2);
     var id = json.package[0].package_id;
-    qr_to_image(id);
-    fs.writeFile(__dirname+`/public/packages/${id}.json`, prettyJSON, (err) => {
-        if (err) {
-            throw err;
-        }
-    });
+    var ok = await qr_to_image(id);
+    // fs.writeFile(__dirname+`/public/packages/${id}.json`, prettyJSON, (err) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    // });
+    genSender.passPack('pack',prettyJSON);
+    genSender.passPack('qr',id);
     return id;
 }
 run();
 function mainFunction() {
-    // var pack = fabricate_Multipackages(1,32923132619,16,16,5);
-    // var id = packToFile(2);
-    // genSender.passPack('pack',pack);
+    // packToFile(1);
 };
 function run() {
     setInterval(mainFunction, 5000);
 };
-
-module.exports={fabricate_Multipackages};

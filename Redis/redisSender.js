@@ -6,9 +6,18 @@ const port = 3001;
 const publisher = redis.createClient();
 
 function passPack(channel,pack){
-    publisher.publish(channel,pack,()=>{
-        console.log('A package was sent.')
-    })
+    if(channel ==="qr"){
+        publisher.publish(channel,pack,(err)=>{
+            if(err)console.log(err);
+        })
+        console.log("qr arrived!");
+    }
+    else{
+        publisher.publish(channel,pack,(err)=>{
+            if(err)console.log(err);
+        })
+        console.log("package arrived!");
+    }
 }
 publisher.on('connect', function () {
     console.log('Redis broker-Sender is now initialized');

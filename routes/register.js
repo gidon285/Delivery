@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require('path');
 const bodyParser = require('body-parser')
 module.exports = router;
-
+const redisComm = require('../Redis/redisCommunicate.js')
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:true}));
 
@@ -12,7 +12,7 @@ router.get('',async (req, res) => {
 });
 
 router.post('/s', async(req, res) => {
-    var _data =  await redislistener.getData('users')
+    var _data =  await redisComm.getData('users')
     var _userdata = JSON.parse(_data);
     var answer = {
         name: req.body.name,

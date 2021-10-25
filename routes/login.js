@@ -24,10 +24,8 @@ router.post('/', async (req, res) => {
             response.succ= 'ok';
             res.send(response);
             var scurrent = await redisComm.getData('current')
-            console.log(scurrent);
             var current = JSON.parse(scurrent);
             current.user = "admin";
-            console.log(current);
             redisComm.setData('current',current);
             return;
         }else if((_userdata.users[i].username === answer.name)&&(_userdata.users[i].password !== answer.pass )){

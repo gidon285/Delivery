@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 const bodyParser =require('body-parser');
+const redisComm = require('../Redis/redisCommunicate.js')
 
 
 router.use(bodyParser.json());
@@ -15,6 +16,9 @@ router.get('/profile',async (req,res)=>{
 });
 router.get('/help',async (req,res)=>{
     res.render(path.join(__dirname,'..','/views/pages/help'));
+});
+router.get('/getInfo',async (req,res)=>{
+    var _data =  await redisComm.getData('users')
 });
 router.get('/map-google',async (req,res)=>{
     res.render(path.join(__dirname,'..','/views/pages/map-google'));
