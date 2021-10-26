@@ -19,6 +19,9 @@ router.get('/help',async (req,res)=>{
 });
 router.get('/getInfo',async (req,res)=>{
     var _data =  await redisComm.getData('users')
+    var ans = JSON.parse(_data);
+    res.send(ans);
+
 });
 router.get('/map-google',async (req,res)=>{
     res.render(path.join(__dirname,'..','/views/pages/map-google'));

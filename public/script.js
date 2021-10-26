@@ -32,7 +32,7 @@ function closeModal(modal) {
   overlay.classList.remove('active')
 }
 function AteempetSignup(){
-  data = {name:document.getElementById('name').value,
+  var data = {name:document.getElementById('name').value,
           pass1:document.getElementById('pass1').value,
           pass2:document.getElementById('pass2').value};
   let request = new XMLHttpRequest();
@@ -77,24 +77,3 @@ function AteempetLogin(){
   }
   
 }  
-function getInfo() {
-  
-  let request = new XMLHttpRequest();
-  request.open("GET", 'http://localhost:3000/dashboard/getInfo',true);
-  request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-  request.send();
-  request.onreadystatechange = function() {
-  if (request.readyState === 4) {
-    var jsonrespons = JSON.parse(request.response);
-    if( jsonrespons.succ === ""){
-      document.getElementById('Mymodal-tile').innerHTML="Error!";
-      document.getElementById('Mymodal-message').innerHTML= jsonrespons.err;
-    }else{
-      document.getElementById('Mymodal-tile').innerHTML="Thanke you for Signing up!"
-      document.getElementById('Mymodal-message').innerHTML= jsonrespons.succ;
-    }
-    }
-  }
-
-
-}

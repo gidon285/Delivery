@@ -1,6 +1,7 @@
 const faker = require('faker');
 const QRCode = require('qrcode');
 const genSender = require('./Redis/redisSender');
+const mongo = require('./Mongo/M.js');
 const fs = require('fs');
 // lists
 const _pgender_type = ["Male","Female"];
@@ -154,14 +155,14 @@ const _package= {
 */
 function gen_Packageinfo(){
     var _dnumber = gen_IntRange(0,8);
-    var num =  gen_IntRange(1,6);  
+    var num =gen_IntRange(1,7)-1;  
     if(0<=_dnumber && _dnumber<=2){
         var _price = (gen_IntRange(1,75)*num).toFixed(0);
         var _taxes = 0;
         var _shipment_cost = (gen_IntRange(10,25)*num).toFixed(0);
         var _size = "small";
     }
-    else if(3<=_dnumber || _dnumber<=4){
+    else if(3<=_dnumber && _dnumber<=4){
         var _price = (gen_IntRange(75,500)*num).toFixed(0);
         var _taxes = ((0.17*_price)*num).toFixed(0);
         var _shipment_cost = (gen_IntRange(25,50)*num).toFixed(0);
@@ -174,24 +175,31 @@ function gen_Packageinfo(){
         var _size = "large";
     }
     var _department_name = _package.department_name[_dnumber];
-    var _departments ="[\""+_package.department_name[_dnumber]+"\",";   // somthing. . . . . . . . . . . 
-    var _items="[\""+_package.product[_department_name][gen_IntRange(0,4)]+"\",";
+    var _departments ="[\""+_department_name+"\","; 
+    var _items="[\""+_package.product[_department_name][gen_IntRange(0,6)-1]+"\",";
     var colors ="[\""+ _package.color[gen_IntRange(0,15)]+"\",";
-         
+    var plant = gen_IntRange(0,200)-1
     for(let i = 0; i <num; i++){
         if( i == num-1){
             _dnumber = gen_IntRange(0,8);
             _department_name = _package.department_name[_dnumber];
-            _departments += "\""+_package.department_name[_dnumber] +"\"]";
-            _items += "\""+_package.product[_department_name][gen_IntRange(0,4)]+"\"]";
+            _departments += "\""+_department_name +"\"]";
+            _items += "\""+_package.product[_department_name][gen_IntRange(0,5)-1]+"\"]";
             colors += "\""+_package.color[gen_IntRange(0,15)]+"\"]";
             break;
         }
-        _dnumber = gen_IntRange(0,8)
-        _department_name = _package.department_name[_dnumber];
-        _departments += "\""+_package.department_name[_dnumber] +"\",";
-        _items += "\""+_package.product[_department_name][gen_IntRange(0,4)]+"\",";
-        colors += "\""+_package.color[gen_IntRange(0,15)]+"\",";
+        if(plant%3 !== 0){
+            _dnumber = gen_IntRange(0,8);
+            _department_name = _package.department_name[_dnumber];
+            _departments += "\""+_department_name +"\",";
+            _items += "\""+_package.product[_department_name][gen_IntRange(0,5)-1]+"\",";
+            colors += "\""+_package.color[gen_IntRange(0,15)]+"\",";
+        }else{
+            _department_name = _package.department_name[_dnumber];
+            _departments += "\""+_department_name+"\",";
+            _items += "\""+_package.product[_department_name][gen_IntRange(0,5)-1]+"\",";
+            colors += "\""+_package.color[gen_IntRange(0,15)]+"\",";
+        }
     }
     return ("\"department_names\":"+_departments+","
             +"\"products\": "+_items+","
@@ -239,16 +247,16 @@ function gen_Sender_Address() {
         _con = _con.includes('_') ? _con.replace('_', ' ') : _con;
         _state_name = _state_name.includes('_') ? _state_name.replace('_', ' ') : _state_name;
         return ("\"sender country\": \""+_con+"\",\"sender state/region\": \"" + _state_name 
-                +"\",\"sender city\": \""+_city +"\",\"sender street_name\": \""+ faker.address.streetName() 
-                +"\",\"sender street_num\": \""+ gen_Num_size(10000).toString() 
-                +"\",\"sender zipCode\": \""+faker.address.zipCode()
-                +"\",\"sender phone\": \""+faker.phone.phoneNumberFormat(1));                                      
+                +"\",\"sender_city\": \""+_city +"\",\"sender street_name\": \""+ faker.address.streetName() 
+                +"\",\"sender_street_num\": \""+ gen_Num_size(10000).toString() 
+                +"\",\"sender_zipCode\": \""+faker.address.zipCode()
+                +"\",\"sender_phone\": \""+faker.phone.phoneNumberFormat(1));                                      
     }
     _con = _address.country[_connum];
     _city = _address[_con].city_name[gen_IntRange(0,5)];
-    return ("\"sender country\": \""+_con+"\",\"sender state/region\": \"n/a\""+",\"sender city\": \""
-            +_city+"\",\"sender street_name\": \""+ faker.address.streetName()+"\",\"sender street_num\": \""
-            +gen_Num_size(10000).toString() +"\",\n\t\"sender zipCode\": \""+faker.address.zipCode()+"\","+"\"sender phone\": \""
+    return ("\"sender_country\": \""+_con+"\",\"sender_state/region\": \"n/a\""+",\"sender_city\": \""
+            +_city+"\",\"sender_street_name\": \""+ faker.address.streetName()+"\",\"sender_street_num\": \""
+            +gen_Num_size(10000).toString() +"\",\n\t\"sender_zipCode\": \""+faker.address.zipCode()+"\","+"\"sender_phone\": \""
             +faker.phone.phoneNumberFormat(1)                                         
             );
 }
@@ -261,9 +269,9 @@ function gen_Reciver_Address() {
     _state = _address[_address.country[11]].state_Name[gen_IntRange(0,5)];
     _city = _address[_address.country[11]].state[_state][gen_IntRange(0,3)];
     _phone ="05"+gen_IntRange(0,8).toString()+'-'+lfsr(gen_IntRange(11111,99999), 7, 10).slice(0,7)                                         
-    return ("\"reciver country\": \""+_address.country[11]+"\",\"reciver state/region\":\""+_state+"\",\"reciver city\": \""
-            +_city+"\",\"reciver street_name\": \""+ _address[_address.country[11]].street[gen_IntRange(0,22)]+"\",\"reciver street_num\": \""
-            +gen_Num_size(100).toString() +"\",\"reciver zipCode\": \""+faker.address.zipCode()+"\","+"\"reciver phone\": \""
+    return ("\"reciver_country\": \""+_address.country[11]+"\",\"reciver_state/region\":\""+_state+"\",\"reciver_city\": \""
+            +_city+"\",\"reciver_street_name\": \""+ _address[_address.country[11]].street[gen_IntRange(0,22)]+"\",\"reciver_street_num\": \""
+            +gen_Num_size(100).toString() +"\",\"reciver_zipCode\": \""+faker.address.zipCode()+"\","+"\"reciver_phone\": \""
             +_phone                                       
             );
 }
@@ -276,8 +284,8 @@ function gen_Reciver(){
     var _pname = faker.name.firstName(_gender); 
     var _plast = faker.name.lastName();
     var _pemail = _pname+_plast+gen_Num_size(100).toString()+_edomain[gen_IntRange(0,10)];
-    return ("\"reciver first_name\": \""+_pname+"\",\"reciver last_name\":\""+_plast
-            +"\",\"reciver gender\": \""+_pgender_type[_gender]+"\",\"reciver email_adress\": \""
+    return ("\"reciver_first_name\": \""+_pname+"\",\"reciver_last_name\":\""+_plast
+            +"\",\"reciver_gender\": \""+_pgender_type[_gender]+"\",\"reciver_email_adress\": \""
             +_pemail.toLocaleLowerCase()                                          
             );
 }
@@ -290,8 +298,8 @@ function gen_Sender(){
     var _pname = faker.name.firstName(_gender); 
     var _plast = faker.name.lastName();
     var _pemail = _pname+_plast+gen_Num_size(100).toString()+_edomain[gen_IntRange(0,10)];
-    return ("\"sender first_name\": \""+_pname+"\",\"sender last_name\":\""+_plast
-            +"\",\"sender gender\": \""+_pgender_type[_gender]+"\",\"sender email_adress\": \""
+    return ("\"sender_first_name\": \""+_pname+"\",\"sender_last_name\":\""+_plast
+            +"\",\"sender_gender\": \""+_pgender_type[_gender]+"\",\"sender_email_adress\": \""
             +_pemail.toLocaleLowerCase()                                          
             );
 }
@@ -413,21 +421,43 @@ function fabricate_Multipackages(num,seed,length,base,duration){
 async function packToFile(num){
     var json =JSON.parse(fabricate_Multipackages(num,3292313261*gen_IntRange(2,3408),16,16,5));
     var prettyJSON = JSON.stringify(json ,null,2);
-    var id = json.package[0].package_id;
-    var ok = await qr_to_image(id);
-    // fs.writeFile(__dirname+`/public/packages/${id}.json`, prettyJSON, (err) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    // });
-    genSender.passPack('pack',prettyJSON);
-    genSender.passPack('qr',id);
-    return id;
+    var ids= [];
+    for (let i = 0; i < num; i++){
+        // var id = json.package[i].package_id;
+        // ids.push(id);
+        // var ok = await qr_to_image(id);
+        // ${id}
+        fs.writeFile(__dirname+`/public/css/data.json`, prettyJSON, (err) => {
+            if (err) {
+                throw err;
+            }
+        });
+    }
+    // await genSender.passPack('packnumber',num)
+    // genSender.passPack('qr',id);
+    // genSender.passPack('pack',prettyJSON);
+    // for (let i = 0; i < ids.length; i++){
+    //     deletefile(ids[i]);
+    // }
+    // ids = [];
+    return;    
 }
 run();
-function mainFunction() {
-    // packToFile(1);
+async function mainFunction() {
+    // await packToFile(150);
+     genSender.passPack('toput',"");
+    await genSender.passPack('topull',"");
+    await genSender.passPack('toextract',"");
+    await genSender.passPack('toanal',"");
+
 };
 function run() {
-    setInterval(mainFunction, 5000);
+    // setInterval(mainFunction, 30000);
+    console.log('mainfunction');
+    mainFunction()
 };
+function deletefile(id) {
+    var path = __dirname+"/public/packages/"+id+".";
+    fs.unlinkSync(path+"png",(err)=>{if(err)console.log(err)})
+    fs.unlinkSync(path+"json",(err)=>{if(err)console.log(err)})
+}

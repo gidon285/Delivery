@@ -1,0 +1,52 @@
+{
+  "package": [
+    {
+      "package_id": "7e0daf0d09ed75fd",
+      "department_name": "Electronics",
+      "product": "Headphones",
+      "color": "plum",
+      "product_price": "87$",
+      "taxes": "14.790000000000001$",
+      "shipment_cost": "43$",
+      "size": "medium",
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "first_name": "Rosalie",
+      "last_name": "Bergnaum",
+      "gender": "Female",
+      "email_adress": "rosaliebergnaum68@outlook.com",
+      "country": "Israel",
+      "state/region": "Galil",
+      "city": "Bet-Rimon",
+      "street_name": " Ha-Taasim",
+      "street_num": "17",
+      "zipCode": "96186",
+      "phone": "057-6015123",
+      "arrival_date": "Mon Nov 15 2021 14:09:39 GMT+0200 (Israel Standard Time)",
+      "sent_date": "Thu Oct 21 2021 19:36:10 GMT+0300 (Israel Daylight Time)"
+    },
+    {
+      "package_id": "7eebce097690572e",
+      "department_name": "Sports",
+      "product": "Bike",
+      "color": "azure",
+      "product_price": "476$",
+      "taxes": "80.92$",
+      "shipment_cost": "27$",
+      "size": "medium",
+      "description": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "first_name": "Kay",
+      "last_name": "Smitham",
+      "gender": "Female",
+      "email_adress": "kaysmitham1@mailout.com",
+      "country": "Israel",
+      "state/region": "Golan",
+      "city": "Nov",
+      "street_name": "Hayarkon",
+      "street_num": "95",
+      "zipCode": "79222",
+      "phone": "053-1270511",
+      "arrival_date": "Fri Oct 22 2021 11:37:59 GMT+0300 (Israel Daylight Time)",
+      "sent_date": "Thu Oct 21 2021 19:36:10 GMT+0300 (Israel Daylight Time)"
+    }
+  ]
+}
