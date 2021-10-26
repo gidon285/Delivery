@@ -3,6 +3,7 @@ var bigml = require('bigml');
 var connection = new bigml.BigML('ELADVAK8','8870296ed4ff2a7d9c648238167d20dc88a98f41') 
 const csvjson = require ('csvjson');
 const redis = require('redis');
+const BigSender = require('../Redis/redisSender');
 const path = require('path');
 const broker = redis.createClient(6379,'127.0.0.1');
 
@@ -12,14 +13,14 @@ broker.subscribe("toanal")
 
 broker.on("message",(channel, message)=>{
     if(channel === "toextract"){
-        extract();
+      ConvertDataToCSV();
     }
     if( channel === 'toannal'){
-        anal();
+        BigMLfunction();
     }
 });
-function extract (){
-    fs.readFile('../public/css/out_file.json', (err, data) => {
+function ConvertDataToCSV (){
+    fs.readFile('../public/packge/out_file.json', (err, data) => {
     if (err)
         console.log(err);
     else {
@@ -49,7 +50,7 @@ function extract (){
           if (!error && datasetInfo) {
             if (!error && datasetInfo) {
             const association = new bigml.Association(connection);
-            association.create(datasetInfo, { name: 'pencil' }, true, function (error, associationInfo) {
+            association.create(datasetInfo, { name: 'elad' }, true, function (error, associationInfo) {
              if (!error && associationInfo) {
                const model = new bigml.Model(connection);
                const results = {};        // save the result to export to json file
@@ -70,7 +71,7 @@ function extract (){
                       coverage: coverage
                     });
                 }
-                      fs.writeFileSync('data_out.json', JSON.stringify(results.data));
+                      res(JSON.stringify(results));
                     }
      });
       }
@@ -81,7 +82,3 @@ function extract (){
               }
                 });
               })
-
-
-
-             extract();

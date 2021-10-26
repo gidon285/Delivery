@@ -48,7 +48,7 @@ function mainFunction() {
     
 };
 function run() {
-    setInterval(mainFunction, 4000);
+    setInterval(mainFunction, 30000);
 };
 async function uploadJSON(message){
     for(let i = 0; i< packnum; i++){
@@ -61,12 +61,12 @@ async function uploadJSON(message){
     deleteCollection(firestore,'packages',packnum);
 }
 async function uploadQR(id){
-    // for(let i = 0; i< packnum; i++){
-    //     let bucketName = 'gs://delivery-1437e.appspot.com'
-    //     const destinationFilename = "QRCodes/"+id+".png";
-    //     let filename = './public/packages/'+id+'.png';
-    //     await storage.bucket(bucketName).upload(filename,{ destination: destinationFilename });
-    // }
+    for(let i = 0; i< packnum; i++){
+        let bucketName = 'gs://delivery-1437e.appspot.com'
+        const destinationFilename = "QRCodes/"+id+".png";
+        let filename = './public/packages/'+id+'.png';
+        await storage.bucket(bucketName).upload(filename,{ destination: destinationFilename });
+    }
 }
 async function getJson(id) {
     const packRef = firestore.collection('packages').doc(id);
@@ -97,21 +97,6 @@ async function deleteQueryBatch(db, query, resolve) {
       deleteQueryBatch(db, query, resolve);
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports={getJson};
 

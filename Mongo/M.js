@@ -6,27 +6,54 @@ const path = require('path')
 const dbName = 'ourProj';
 const redis = require('redis');
 const broker = redis.createClient(6379,'127.0.0.1');
+const MongoSender = require('../Redis/redisSender');
 
 broker.subscribe("toput")
 broker.subscribe("topull")
+broker.subscribe("toputone")
+broker.subscribe("updateMongo")
 
 broker.on("message",(channel, message)=>{
     if(channel === "topull"){
-        pull();
+        pullAllDataFromMongo();
     }
     if( channel === 'toput'){
-        put();
+        putDataOnMongo();
+    }
+    if( channel === 'toputone'){
+        Minsert(message);
+    }
+    if( channel === 'updateMongo'){
+        putDataOnMongo();
     }
 });
 
-async function put() {
+async function Minsert(filename){
+    client.connect(function(err) {
+        const db = client.db(dbName);  
+        var mongojson = JSON.parse(filename);
+            var array = [];
+            for (let i = 0; i < mongojson.package.length; i++) {
+                array [i] = mongojson.package[i];
+            }
+        const docs = array;
+        db.collection('packages').insertMany(docs, function(err, result) {
+                if (err) throw err;
+                console.log('Inserted docs:', result.insertedCount);
+            
+        });
+    });
+    client.close;
+
+}
+async function putDataOnMongo() {
     client.connect(function(err) {
         console.log('Connected successfully to server');
         const db = client.db(dbName);  
-        fs.readFile(path.join(__dirname,'../public/css/data.json'), (err, data) => {
+        fs.readFile(path.join(__dirname,'../public/packge/data.json'), (err, data) => {
             if (err)console.log(err);
             else {
-                const data = fs.readFileSync(path.join(__dirname,'../public/css/data.json'));
+                const data = fs.readFileSync(path.join(__dirname,'../public/packge/data.json'));
                 var mongojson = JSON.parse(data);
                 var array = [];
                 for (let i = 0; i < mongojson.package.length; i++) {
@@ -42,7 +69,7 @@ async function put() {
     });
     client.close;
 }
-function pull(){
+function pullAllDataFromMongo(){
     client.connect(function(err) {
         console.log('Connected successfully to server');
         const db = client.db(dbName);
@@ -51,7 +78,7 @@ function pull(){
             client.close();
             // Write to file
             try {
-                fs.writeFileSync('../public/css/out_file.json', JSON.stringify(docs));
+                fs.writeFileSync('../public/packge/out_file.json', JSON.stringify(docs));
                 console.log('Done writing to file.');
             }
             catch(err) {

@@ -3,12 +3,38 @@ const router = express.Router();
 const path = require('path');
 const bodyParser =require('body-parser');
 const redisComm = require('../Redis/redisCommunicate.js');
+const redis = require('redis');
+const serverSender = require('../Redis/redisSender');
+const broker = redis.createClient(6379,'127.0.0.1');
 const QRCode = require('qrcode');
 const fs = require('fs');
-const { stringify } = require("querystring");
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:true}));
 
+broker.subscribe('gidon');
+broker.on('message',(channel,message)=>{
+    var admin = JSON.parse(message);
+    var mont=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for(var i=0; i<admin.package.length; i++){
+        if(admin.package[i].arrival_date.substring(4,7)=='Jan'){mont[0]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Feb'){mont[1]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Mar'){mont[2]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Apr'){mont[3]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='May'){mont[4]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Jun'){mont[5]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Jul'){mont[6]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Aug'){mont[7]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Sep'){mont[8]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Oct'){mont[9]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Nov'){mont[10]+=1}
+        else if(admin.package[i].arrival_date.substring(4,7)=='Dec'){mont[11]+=1}
+    }        
+
+    var a={numbers:""};
+    a.numbers=mont;
+    console.log(a);
+
+})
 router.get('/',async (req,res)=>{
     res.render('./pages/dashboard');
 });
@@ -20,36 +46,36 @@ router.get('/getInfo',async (req,res)=>{
     var _data =  await redisComm.getData('user_info');
     res.send(_data);
 });
-
 router.get('/countSize',async (req,res)=>{
-    var admin = {}
-    var size=[0, 0, 0];
-    var pr=[0,0,0];
-    for(var i=0; i<admin.package.length; i++){
-        if(admin.package[i].size=='small'){
-            size[0]+=1;
-            pr[0]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
-        }
-        else if(admin.package[i].size=='medium'){
-            size[1]+=1;
-            pr[1]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
+    // var admin = JSON.parse(jsm);
+    // var size=[0, 0, 0];
+    // var pr=[0,0,0];
+    // for(var i=0; i<admin.package.length; i++){
+    //     if(admin.package[i].size=='small'){
+    //         size[0]+=1;
+    //         pr[0]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
+    //     }
+    //     else if(admin.package[i].size=='medium'){
+    //         size[1]+=1;
+    //         pr[1]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
 
-        }
-        else if(admin.package[i].size=='large'){
-            size[2]+=1;
-            pr[3]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
+    //     }
+    //     else if(admin.package[i].size=='large'){
+    //         size[2]+=1;
+    //         pr[3]+=parseInt(admin.package[i].product_price.substring(0,admin.package[i].product_price.length-1));
 
-        }
-    }   
-    var a={numbers:"",price:""};
-    a.numbers=size;
-    a.price=pr;
-    res.send(a);
+    //     }
+    // }   
+    // var a={numbers:"",price:""};
+    // a.numbers=size;
+    // a.price=pr;
+    // console.log(a);
+    // res.send(a);
 });
 
 
 router.get('/deliverysTable',async (req,res)=>{
-    var admin = {}
+    var admin = {package:[]};
     let a=[];
     for(var i= 0; i<admin.package.length; i++){
             var p = ["", "", "", "", "", "", "", ""];
@@ -64,6 +90,7 @@ router.get('/deliverysTable',async (req,res)=>{
             a.push(p);
             await qr_to_image(admin.package[i].package_id, i);
     }   
+    console.log(a);
     res.send(a);
 });
 
@@ -76,7 +103,7 @@ async function qr_to_image(id, i){
 
 
 router.get('/graph',async (req,res)=>{
-    var admin = {};
+    var admin = {package:[]};
     var mont=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for(var i=0; i<admin.package.length; i++){
         if(admin.package[i].arrival_date.substring(4,7)=='Jan'){mont[0]+=1}
@@ -134,6 +161,7 @@ router.get('/map-google',async (req,res)=>{
     res.render(path.join(__dirname,'..','/views/pages/map-google'));
 });
 router.get('/deliveries',async (req,res)=>{
+    serverSender.passPack(toannal,"");
     res.render(path.join(__dirname,'..','/views/pages/deliveries'));
 });
 router.get('/analytical',async (req,res)=>{
