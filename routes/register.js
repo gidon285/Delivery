@@ -48,9 +48,9 @@ router.post('/s', async(req, res) => {
         return;
     }
     //------------------------------------//
-    // var _nuser = {answer.name, password:answer.pass1};
-    // _userdata.users.push(_nuser);
-    // updateUsers(JSON.stringify(_userdata));
+    var _nuser = {username:answer.name, password:answer.pass1};;
+    _userdata.users.push(_nuser);
+    redisComm.setData('users', _userdata);
     response.succ='User created!';
     res.send(response);
     return;

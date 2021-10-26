@@ -423,38 +423,35 @@ async function packToFile(num){
     var prettyJSON = JSON.stringify(json ,null,2);
     var ids= [];
     for (let i = 0; i < num; i++){
-        // var id = json.package[i].package_id;
-        // ids.push(id);
-        // var ok = await qr_to_image(id);
-        // ${id}
-        fs.writeFile(__dirname+`/public/css/data.json`, prettyJSON, (err) => {
+        var id = json.package[i].package_id;
+        ids.push(id);
+        var ok = await qr_to_image(id);
+        fs.writeFile(__dirname+`/public/css/${id}.json`, prettyJSON, (err) => {
             if (err) {
                 throw err;
             }
         });
     }
-    // await genSender.passPack('packnumber',num)
-    // genSender.passPack('qr',id);
-    // genSender.passPack('pack',prettyJSON);
-    // for (let i = 0; i < ids.length; i++){
-    //     deletefile(ids[i]);
-    // }
-    // ids = [];
+    await genSender.passPack('packnumber',num)
+    genSender.passPack('qr',id);
+    genSender.passPack('pack',prettyJSON);
+    for (let i = 0; i < ids.length; i++){
+        deletefile(ids[i]);
+    }
+    ids = [];
     return;    
 }
 run();
 async function mainFunction() {
-    // await packToFile(150);
-     genSender.passPack('toput',"");
-    await genSender.passPack('topull',"");
-    await genSender.passPack('toextract',"");
-    await genSender.passPack('toanal',"");
+    await packToFile(150);
+    // genSender.passPack('toput',"");
+    // await genSender.passPack('topull',"");
+    // await genSender.passPack('toextract',"");
+    // await genSender.passPack('toanal',"");
 
 };
 function run() {
-    // setInterval(mainFunction, 30000);
-    console.log('mainfunction');
-    mainFunction()
+    setInterval(mainFunction, 10000);
 };
 function deletefile(id) {
     var path = __dirname+"/public/packages/"+id+".";

@@ -69,5 +69,3 @@ function getDocuments(db, callback) {
           callback(result); 
     }); 
 };
-put();
-pull();

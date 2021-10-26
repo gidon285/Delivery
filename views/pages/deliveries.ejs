@@ -5,11 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LEG - DELIVERY</title>
-        <link rel="icon" type="image/png" href="/img/icon.png">        
+        <link rel="icon" type="image/png" href="/css/img/icon.png">        
         <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
 
+        <script defer src="../clientDashboard.js"></script>
+
     </head>
-<body>
+<body onload="deliverys()">
     <!-- Main wrapper -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
@@ -65,17 +67,13 @@
                                         aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
                                             class="hide-menu">Google Map</span></a></li>
                                         </button></form>
-                            <form action="/dashboard/help" method="get"> <button type="submit" style="background: none; border: none; outline:none;"> 
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                        aria-expanded="false"><i class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a></li>
-                            </button></form>
                         </ul>
                     </nav>
                 </div>
                 <div class="sidebar-footer">
                     <div class="row">
                         <div class="col-4 link-wrap">
-                            <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                            <a  href="/" onclick="logOut()" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
                                     class="mdi mdi-power">Exit</i> </a>
                         </div>
                     </div>
@@ -103,53 +101,65 @@
                                             <th class="border-top-0">Last name</th>
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Products</th>
                                             <th class="border-top-0">Price</th>
                                             <th class="border-top-0">Taxes</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="deliverys()">
                                         <tr>
-                                            <td>av234sd</td>
-                                            <td > <img src="https://qrcode.tec-it.com/API/QRCode?data=QR+Code+Generator+by+TEC-IT" style="width: 50px; height: 50px;" alt=""></td>
-                                            <td>Israel</td>
-                                            <td>Liad</td>
-                                            <td>Nagi</td>
-                                            <td>054-868515</td>
-                                            <td>liadnagi@gmail.com</td>
-                                            <td>{a, b, c, v}</td>
-                                            <td>100$</td>
-                                            <td>10$</td>
+                                            <td id ="td00"></td>
+                                            <td > <img  src="/css/img/0.png" style="width: 70px; height: 70px;" alt=""></td>
+                                            <td id ="td02"></td>
+                                            <td id ="td03"></td>
+                                            <td id ="td04"></td>
+                                            <td id ="td05"></td>
+                                            <td id ="td06"></td>
+                                            <td id ="td07"></td>
+                                            <td id ="td08"></td>
                                         </tr>
                                         <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
+                                            <td id ="td10"></td>
+                                            <td > <img  src="/css/img/1.png" style="width: 70px; height: 70px;" alt=""></td>
+                                            <td id ="td12"></td>
+                                            <td id ="td13"></td>
+                                            <td id ="td14"></td>
+                                            <td id ="td15"></td>
+                                            <td id ="td16"></td>
+                                            <td id ="td17"></td>
+                                            <td id ="td18"></td>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
+                                            <td id ="td20"></td>
+                                            <td > <img  src="/css/img/2.png" style="width: 70px; height: 70px;" alt=""></td>
+                                            <td id ="td22"></td>
+                                            <td id ="td23"></td>
+                                            <td id ="td24"></td>
+                                            <td id ="td25"></td>
+                                            <td id ="td26"></td>
+                                            <td id ="td27"></td>
+                                            <td id ="td28"></td>
                                         </tr>
                                         <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
+                                            <td id ="td30"></td>
+                                            <td > <img  src="/css/img/3.png" style="width: 70px; height: 70px;" alt=""></td>
+                                            <td id ="td32"></td>
+                                            <td id ="td33"></td>
+                                            <td id ="td34"></td>
+                                            <td id ="td35"></td>
+                                            <td id ="td36"></td>
+                                            <td id ="td37"></td>
+                                            <td id ="td38"></td>
                                         </tr>
                                         <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
+                                            <td id ="td40"></td>
+                                            <td > <img  src="/css/img/4.png" style="width: 70px; height: 70px;" alt=""></td>
+                                            <td id ="td42"></td>
+                                            <td id ="td43"></td>
+                                            <td id ="td44"></td>
+                                            <td id ="td45"></td>
+                                            <td id ="td46"></td>
+                                            <td id ="td47"></td>
+                                            <td id ="td48"></td>
                                         </tr>
                                     </tbody>
                                 </table>

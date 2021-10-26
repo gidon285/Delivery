@@ -5,9 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LEG - DELIVERY</title>
-        <link rel="icon" type="image/png" href="/img/icon.png">        
+        <link rel="icon" type="image/png" href="/css/img/icon.png">        
         <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
-
+        <script defer src="script.js"></script>
     </head>
 <body>
     <!-- Main wrapper -->
@@ -65,18 +65,13 @@
                                     aria-expanded="false"><i class="mdi me-2 mdi-google-maps"></i><span
                                             class="hide-menu">Google Map</span></a></li>
                             </button></form>                                        
-                            <form action="/dashboard/help" method="get"> <button type="submit" style="background: none; border: none; outline:none; "> 
-                                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                        aria-expanded="false"><i
-                                            class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">Help</span></a></li>
-                            </button></form>
                         </ul>
                     </nav>
                 </div>
                 <div class="sidebar-footer">
                     <div class="row">
                         <div class="col-4 link-wrap">
-                            <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                            <a  href="/" onclick="logOut()" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
                                     class="mdi mdi-power">Exit</i> </a>
                         </div>
                     </div>
@@ -84,6 +79,82 @@
             </aside>
             <!-- End Sidebar scroll-->    
     </div>
+
+
+    <div class="page-wrapper" style="left: 250px; width: 1000px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Analytical</h4>
+                        <div class="table-responsive" >
+                            <table class="table user-table">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0">Antecedent</th>
+                                        <th class="border-top-0">Consequent</th>                                            
+                                        <th class="border-top-0">Coverage</th>
+                                        <th class="border-top-0">Support</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>av234sd</td>
+                                        <td > <img src="https://qrcode.tec-it.com/API/QRCode?data=QR+Code+Generator+by+TEC-IT" style="width: 50px; height: 50px;" alt=""></td>
+                                        <td>Israel</td>
+                                        <td>Liad</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Deshmukh</td>
+                                        <td>Gaylord</td>
+                                        <td>@Ritesh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Sanghani</td>
+                                        <td>Gusikowski</td>
+                                        <td>@Govinda</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Roshan</td>
+                                        <td>Rogahn</td>
+                                        <td>@Hritik</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Joshi</td>
+                                        <td>Hickle</td>
+                                        <td>@Maruti</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Nigam</td>
+                                        <td>Eichmann</td>
+                                        <td>@Sonu</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="page-wrapper" style="left: 530px; ">
         <p id="demo"></p>
