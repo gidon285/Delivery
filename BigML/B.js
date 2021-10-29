@@ -20,7 +20,8 @@ broker.on("message",(channel, message)=>{
     }
 });
 function ConvertDataToCSV (){
-    fs.readFile('../public/packge/out_file.json', (err, data) => {
+    var place = __dirname+"\\out_file.json";
+    fs.readFile(place, (err, data) => {
     if (err)
         console.log(err);
     else {

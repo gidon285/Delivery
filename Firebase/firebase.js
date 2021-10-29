@@ -4,6 +4,8 @@
  * 
 */
 const {Storage} = require('@google-cloud/storage');
+const fs = require('fs');
+const QRCode= require('qrcode');
 const path = require('path');
 const fireSender = require('../Redis/redisSender');
 const admin = require('firebase-admin');
@@ -26,47 +28,54 @@ admin.initializeApp({
    credential: admin.credential.cert(serviceac),
    databaseURL:"delivery-93cf0.firebaseapp.com"
 })
-
+let ids = [];
 const firestore=  admin.firestore();
-let packnum = 0;
-broker.subscribe("pack");
-broker.subscribe("packnumber");
-broker.subscribe("qr");
+broker.subscribe("id");
+broker.subscribe("start");
+broker.on("message",(channel, message)=>{
+    if(channel === 'id'){
+        ids.push(message);
+    }
+    if (channel === 'start'){
+        run();
+    }
+})
 
-// run();
 function mainFunction() {
-    broker.on("message",(channel, message)=>{
-        if(channel ==="qr"){
-            uploadQR(message).catch((err)=>{if(err)console.log(err);});
-        }
-        else if (channel === "packnumber"){
-            packnum = parseInt(message);
-        }else if (channel === "pack"){
-            uploadJSON(message).catch((err)=>{if(err)console.log(err);});
-        }
-    })
+    let buff_tempdata = fs.readFileSync(path.join(__dirname,'../data/fire.json'));
+    let _data = JSON.parse(buff_tempdata);
+    uploadJSON();
     
 };
 function run() {
-    setInterval(mainFunction, 30000);
+    setInterval(mainFunction, 20000);
+    var generaicpack ={package:[]}
+    fs.writeFileSync(path.join(__dirname,'../data/fire.json'), JSON.stringify(generaicpack));
 };
-async function uploadJSON(message){
+async function uploadJSON(){
+    let buff_tempdata = fs.readFileSync(path.join(__dirname,'../data/data.json'));
+    let _data = JSON.parse(buff_tempdata);
+    var packnum = _data.package.length;
     for(let i = 0; i< packnum; i++){
-        let packson = JSON.parse(message);
-        var id = packson.package[i].package_id;
-        await firestore.collection('packages').doc(id).set(packson).then().catch((err)=>{console.log(err)});
-        var pack = await getJson(id);
-        fireSender.passPack('package',JSON.stringify(pack));
+        console.log("a Package was Stored at Firebase!")
+        var id =_data.package[0].package_id
+        firestore.collection('packages').doc(id).set(_data.package[i]).then().catch((err)=>{console.log(err)});
+        await uploadQR(id);
     }
     deleteCollection(firestore,'packages',packnum);
 }
+async function qr_to_image(id){
+    QRCode.toFile(__dirname+`/public/packages/${id}.png`,id,
+                {color: {dark: '#0000',light: '#ffff'}},
+                function (err) {if (err) throw err})
+    return 1;
+}
 async function uploadQR(id){
-    for(let i = 0; i< packnum; i++){
-        let bucketName = 'gs://delivery-1437e.appspot.com'
-        const destinationFilename = "QRCodes/"+id+".png";
-        let filename = './public/packages/'+id+'.png';
-        await storage.bucket(bucketName).upload(filename,{ destination: destinationFilename });
-    }
+    console.log("a QRCode was Stored at Firebase!")
+    let bucketName = 'gs://delivery-1437e.appspot.com'
+    const destinationFilename = "QRCodes/"+id+".png";
+    let filename = path.join(__dirname,'../public/packages/'+id+'.png');
+    storage.bucket(bucketName).upload(filename,{ destination: destinationFilename });
 }
 async function getJson(id) {
     const packRef = firestore.collection('packages').doc(id);
@@ -97,7 +106,12 @@ async function deleteQueryBatch(db, query, resolve) {
       deleteQueryBatch(db, query, resolve);
     });
   }
-
+async function deletefile(id) {
+    var json = path.join(__dirname,'../public/packages/'+id+'.json')
+    fs.unlink(json,(err)=>{if(err)console.log(err)})
+    var qr =path.join(__dirname,'../public/packages/'+id+'.png')
+    fs.unlink(qr,(err)=>{if(err)console.log(err)})
+}
 module.exports={getJson};
 
 

@@ -7,9 +7,11 @@
         <title>LEG - DELIVERY</title>
         <link rel="icon" type="image/png" href="/css/img/icon.png">        
         <link  rel="stylesheet" href="http://localhost:3000/css/style.min.css"><link>
-        <script defer src="script.js"></script>
+        <script defer src="../clientDashboard.js"></script>
+
+        
     </head>
-<body>
+<body onload="analytical()">
     <!-- Main wrapper -->
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
@@ -97,42 +99,38 @@
                                         <th class="border-top-0">Support</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody  id="analytical">
                                     <tr>
-                                        <td>av234sd</td>
-                                        <td > <img src="https://qrcode.tec-it.com/API/QRCode?data=QR+Code+Generator+by+TEC-IT" style="width: 50px; height: 50px;" alt=""></td>
-                                        <td>Israel</td>
-                                        <td>Liad</td>
+                                        <td id ="an00"></td>
+                                        <td id ="an01"></td>
+                                        <td id ="an02"></td>
+                                        <td id ="an03"></td>
+
                                     </tr>
                                     <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        <td>Gaylord</td>
-                                        <td>@Ritesh</td>
+                                        <td id ="an10"></td>
+                                        <td id ="an11"></td>
+                                        <td id ="an12"></td>
+                                        <td id ="an13"></td>
                                     </tr>
                                     <tr>
-                                        <td>3</td>
-                                        <td>Sanghani</td>
-                                        <td>Gusikowski</td>
-                                        <td>@Govinda</td>
+                                        <td id ="an20"></td>
+                                        <td id ="an21"></td>
+                                        <td id ="an22"></td>
+                                        <td id ="an23"></td>
                                     </tr>
                                     <tr>
-                                        <td>4</td>
-                                        <td>Roshan</td>
-                                        <td>Rogahn</td>
-                                        <td>@Hritik</td>
+                                        <td id ="an30"></td>
+                                        <td id ="an31"></td>
+                                        <td id ="an32"></td>
+                                        <td id ="an33"></td>
+
                                     </tr>
                                     <tr>
-                                        <td>5</td>
-                                        <td>Joshi</td>
-                                        <td>Hickle</td>
-                                        <td>@Maruti</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Nigam</td>
-                                        <td>Eichmann</td>
-                                        <td>@Sonu</td>
+                                        <td id ="an40"></td>
+                                        <td id ="an41"></td>
+                                        <td id ="an42"></td>
+                                        <td id ="an43"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -144,32 +142,5 @@
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="page-wrapper" style="left: 530px; ">
-        <p id="demo"></p>
-        
-        
-        <form method="get" action="/dashboard">
-                <p id="demo"></p>
-
-        <script>    
-            var data = document.getElementById('user').value;
-            
-            document.getElementById("demo").innerHTML = data;
-        </script>
-        </form>
-
-    </div>
 </body>
 </html>

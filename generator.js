@@ -1,5 +1,6 @@
 const faker = require('faker');
 const QRCode = require('qrcode');
+const path = require('path')
 const genSender = require('./Redis/redisSender');
 const mongo = require('./Mongo/M.js');
 const fs = require('fs');
@@ -419,39 +420,41 @@ function fabricate_Multipackages(num,seed,length,base,duration){
 * @return       returns a true false, in case of an error thorws.
 */
 async function packToFile(num){
+    let buff_tempdata = fs.readFileSync(path.join(__dirname,'./data/dataAccum.json'));
+    let _dataAcum = JSON.parse(buff_tempdata);
     var json =JSON.parse(fabricate_Multipackages(num,3292313261*gen_IntRange(2,3408),16,16,5));
-    // var prettyJSON = JSON.stringify(json ,null,2);
-    // var ids= [];
-    // for (let i = 0; i < num; i++){
-    //     var id = json.package[i].package_id;
-    //     ids.push(id);
-    //     var ok = await qr_to_image(id);
-    //     fs.writeFile(__dirname+`/public/css/${id}.json`, prettyJSON, (err) => {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //     });
-    // }
-    // await genSender.passPack('packnumber',num)
-    // genSender.passPack('qr',id);
-    // genSender.passPack('pack',prettyJSON);
-    // for (let i = 0; i < ids.length; i++){
-    //     deletefile(ids[i]);
-    // }
-    // ids = [];
-    // return;    
-    genSender.passPack('gidon',JSON.stringify(json))
+    var prettyJSON = JSON.stringify(json);
+    
+    _dataAcum.package.push(json.package[0]);
+    fs.writeFileSync(path.join(__dirname,'./data/dataAccum.json'), JSON.stringify(_dataAcum));
+    var ids= [];
+    for (let i = 0; i < num; i++){
+        var id = json.package[i].package_id;
+        ids.push(id);
+        genSender.passPack('id',id);
+        var ok = await qr_to_image(id);
+        fs.writeFile(__dirname+`/public/packages/${id}.json`, prettyJSON, (err) => {
+            if (err) {
+                throw err;
+            }
+        });
+    }
+    console.log("a Package was arrived!")
+    genSender.passPack('package',prettyJSON);
+    if( counter >3){
+        genSender.passPack('start',prettyJSON);
+        counter = 0;
+    }
+    return;    
 }
 run();
 async function mainFunction() {
     var numbers = gen_IntRange(0,10);
-    await packToFile(150);
+    packToFile(1);
+    counter ++;
+   
 };
 function run() {
-    setInterval(mainFunction, 15000);
+    setInterval(mainFunction, 10000);
 };
-function deletefile(id) {
-    var path = __dirname+"/public/packages/"+id+".";
-    fs.unlinkSync(path+"png",(err)=>{if(err)console.log(err)})
-    fs.unlinkSync(path+"json",(err)=>{if(err)console.log(err)})
-}
+let counter = 3;

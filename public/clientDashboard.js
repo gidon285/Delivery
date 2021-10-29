@@ -314,3 +314,47 @@ function deliverys() {
     
 
 }
+
+
+function analytical() {
+    let curr = new XMLHttpRequest();
+  
+    curr.open("GET", 'http://localhost:3000/dashboard/analyticalTable',true);
+    curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+    curr.send();
+
+    curr.onreadystatechange = function() {
+        if (curr.readyState === 4) {      
+            var a = JSON.parse(curr.response);
+        
+            document.getElementById('an00').innerText=a[0].product;
+            document.getElementById('an01').innerText=a[0].items;
+            document.getElementById('an02').innerText=a[0].support;
+            document.getElementById('an03').innerText=a[0].coverage;
+            
+
+            document.getElementById('an10').innerText=a[1].product;
+            document.getElementById('an11').innerText=a[1].items;
+            document.getElementById('an12').innerText=a[1].support;
+            document.getElementById('an13').innerText=a[1].coverage;
+            
+            document.getElementById('an20').innerText=a[2].product;
+            document.getElementById('an21').innerText=a[2].items;
+            document.getElementById('an22').innerText=a[2].support;
+            document.getElementById('an23').innerText=a[2].coverage;
+
+            document.getElementById('an30').innerText=a[3].product;
+            document.getElementById('an31').innerText=a[3].items;
+            document.getElementById('an32').innerText=a[3].support;
+            document.getElementById('an33').innerText=a[3].coverage;
+
+            document.getElementById('an40').innerText=a[4].product;
+            document.getElementById('an41').innerText=a[4].items;
+            document.getElementById('an42').innerText=a[4].support;
+            document.getElementById('an43').innerText=a[4].coverage;
+        }
+  }
+    
+
+}
+

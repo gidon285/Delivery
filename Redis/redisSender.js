@@ -4,6 +4,7 @@ const publisher = redis.createClient(6379,'127.0.0.1');
 function passPack(channel,pack){
     publisher.publish(channel,pack,(err)=>{
         if(err)console.log(err);
+        
     })
 }
 publisher.on('connect', function () {
