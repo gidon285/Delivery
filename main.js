@@ -11,6 +11,7 @@ const firebase = require('./Firebase/firebase.js')
 const redisReciver = require('./Redis/redisReciver.js')
 const redisComm = require('./Redis/redisCommunicate.js')
 
+
 const port = 3000;
 
 app.use(express.static(path.join(__dirname,'/public')));

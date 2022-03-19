@@ -1,24 +1,25 @@
-//var admin = JSON.parse(request2.response).user
+const ws = new WebSocket("ws://localhost:8082");
 
+ws.addEventListener("open",() =>{
+  console.log('we are connected');
+})
+ws.addEventListener("message", message =>{
+    document.getElementsByClassName("card-body").innerHtml = message.data
+    console.log(message.data)
+})
 
 function getInfo() {
-
     let curr = new XMLHttpRequest();
-  
     curr.open("GET", 'http://localhost:3000/dashboard/getCurrent',true);
     curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     curr.send();
-
     curr.onreadystatechange = function() {
         if (curr.readyState === 4) {
-        var admin = JSON.parse(curr.response).user; //who is login
-
+        var admin = JSON.parse(curr.response).user; 
         let request = new XMLHttpRequest();
-    
         request.open("GET", 'http://localhost:3000/dashboard/getInfo',true);
         request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
         request.send();
-    
             request.onreadystatechange = function() {
                 if (request.readyState === 4) {
                     var jsonrespons = JSON.parse(request.response);
@@ -31,17 +32,11 @@ function getInfo() {
                     document.getElementById('pro_country').value=jsonrespons.info[admin].country;
                     document.getElementById('pro_zip').value=jsonrespons.info[admin].zip_code;
                     document.getElementById('pro_about').value=jsonrespons.info[admin].about;
-                
-            
-                
                 }
             }
         }
-  }
-
+    }
 }
-
-
 
 function logOut() {
         let request = new XMLHttpRequest();
@@ -49,9 +44,7 @@ function logOut() {
         request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
         request.send();
         return;
-            
 }
-
 
 function saveProfile() {
     var data = {
@@ -65,34 +58,22 @@ function saveProfile() {
         pro_zip:document.getElementById('pro_zip').value,
         pro_about:document.getElementById('pro_about').value
     };
-        
-        //document.getElementById("demo").innerHTML=data;
-
-
     let request = new XMLHttpRequest();
     request.open("POST", 'http://localhost:3000/dashboard/profile/saveProfile',true);
     request.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     request.send(JSON.stringify(data));
-
-
     return;
         
 }
 
-
 function graph() {
     let curr = new XMLHttpRequest();
-  
     curr.open("GET", 'http://localhost:3000/dashboard/graph',true);
     curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     curr.send();
-
     curr.onreadystatechange = function() {
         if (curr.readyState === 4) {
-        
             var a = JSON.parse(curr.response);
-            //document.getElementById('deemo').innerText=a.numbers[0];
-            
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
@@ -140,28 +121,17 @@ function graph() {
                 }
             });
         }
-  }
-    
-
+    }
 }
-
-
-
-
 
 function size() {
     let curr = new XMLHttpRequest();
-  
     curr.open("GET", 'http://localhost:3000/dashboard/countSize',true);
     curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     curr.send();
-
     curr.onreadystatechange = function() {
         if (curr.readyState === 4) {
-        
             var a = JSON.parse(curr.response);
-            //document.getElementById('deemo').innerText=a.numbers[0];
-
             var ct = document.getElementById('myChart3').getContext('2d');
             var myChart2 = new Chart(ct, {
                 type: 'doughnut',
@@ -190,10 +160,6 @@ function size() {
                     }
                 }
             });
-            
-
-
-
 
             var ctx = document.getElementById('myChart2').getContext('2d');
             var myChart2 = new Chart(ctx, {
@@ -223,40 +189,21 @@ function size() {
                     }
                 }
             });
-            
-
-
-
         }
   }
-    
-
 }
-
-
-
-
-
 
 function deliverys() {
     let curr = new XMLHttpRequest();
-  
     curr.open("GET", 'http://localhost:3000/dashboard/deliverysTable',true);
     curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     curr.send();
-
     curr.onreadystatechange = function() {
         if (curr.readyState === 4) {
-        
             var a = JSON.parse(curr.response);
             let strData =a[0][0];
             var img;
-            
-
-        
             document.getElementById('td00').innerText=a[0][0];
-            //document.getElementById('td01').src;
-            //document.getElementById('td01').innerText ->> img;
             document.getElementById('td02').innerText=a[0][1];
             document.getElementById('td03').innerText=a[0][2];
             document.getElementById('td04').innerText=a[0][3];
@@ -264,9 +211,7 @@ function deliverys() {
             document.getElementById('td06').innerText=a[0][5];
             document.getElementById('td07').innerText=a[0][6];
             document.getElementById('td08').innerText=a[0][7];
-            
             document.getElementById('td10').innerText=a[1][0];
-            //document.getElementById('td01').innerText ->> img;
             document.getElementById('td12').innerText=a[1][1];
             document.getElementById('td13').innerText=a[1][2];
             document.getElementById('td14').innerText=a[1][3];
@@ -274,9 +219,7 @@ function deliverys() {
             document.getElementById('td16').innerText=a[1][5];
             document.getElementById('td17').innerText=a[1][6];
             document.getElementById('td18').innerText=a[1][7];
-
             document.getElementById('td20').innerText=a[2][0];
-            //document.getElementById('td01').innerText ->> img;
             document.getElementById('td22').innerText=a[2][1];
             document.getElementById('td23').innerText=a[2][2];
             document.getElementById('td24').innerText=a[2][3];
@@ -284,9 +227,7 @@ function deliverys() {
             document.getElementById('td26').innerText=a[2][5];
             document.getElementById('td27').innerText=a[2][6];
             document.getElementById('td28').innerText=a[2][7];
-
             document.getElementById('td30').innerText=a[3][0];
-            //document.getElementById('td01').innerText ->> img;
             document.getElementById('td32').innerText=a[3][1];
             document.getElementById('td33').innerText=a[3][2];
             document.getElementById('td34').innerText=a[3][3];
@@ -294,9 +235,7 @@ function deliverys() {
             document.getElementById('td36').innerText=a[3][5];
             document.getElementById('td37').innerText=a[3][6];
             document.getElementById('td38').innerText=a[3][7];
-
             document.getElementById('td40').innerText=a[4][0];
-            //document.getElementById('td01').innerText ->> img;
             document.getElementById('td42').innerText=a[4][1];
             document.getElementById('td43').innerText=a[4][2];
             document.getElementById('td44').innerText=a[4][3];
@@ -304,57 +243,39 @@ function deliverys() {
             document.getElementById('td46').innerText=a[4][5];
             document.getElementById('td47').innerText=a[4][6];
             document.getElementById('td48').innerText=a[4][7];
-
-            
-
-
-
         }
   }
-    
-
 }
-
 
 function analytical() {
     let curr = new XMLHttpRequest();
-  
     curr.open("GET", 'http://localhost:3000/dashboard/analyticalTable',true);
     curr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     curr.send();
-
     curr.onreadystatechange = function() {
         if (curr.readyState === 4) {      
             var a = JSON.parse(curr.response);
-        
             document.getElementById('an00').innerText=a[0].product;
             document.getElementById('an01').innerText=a[0].items;
             document.getElementById('an02').innerText=a[0].support;
             document.getElementById('an03').innerText=a[0].coverage;
-            
-
             document.getElementById('an10').innerText=a[1].product;
             document.getElementById('an11').innerText=a[1].items;
             document.getElementById('an12').innerText=a[1].support;
             document.getElementById('an13').innerText=a[1].coverage;
-            
             document.getElementById('an20').innerText=a[2].product;
             document.getElementById('an21').innerText=a[2].items;
             document.getElementById('an22').innerText=a[2].support;
             document.getElementById('an23').innerText=a[2].coverage;
-
             document.getElementById('an30').innerText=a[3].product;
             document.getElementById('an31').innerText=a[3].items;
             document.getElementById('an32').innerText=a[3].support;
             document.getElementById('an33').innerText=a[3].coverage;
-
             document.getElementById('an40').innerText=a[4].product;
             document.getElementById('an41').innerText=a[4].items;
             document.getElementById('an42').innerText=a[4].support;
             document.getElementById('an43').innerText=a[4].coverage;
         }
-  }
-    
-
+    }
 }
 

@@ -19,16 +19,16 @@ router.post('/', async (req, res) => {
         res.send(response);
         return;
     }
-    for (var i = 0; i < _userdata.users.length; i++) {
-        if((_userdata.users[i].username === answer.name)&&(_userdata.users[i].password === answer.pass )){
+    var scurrent = await redisComm.getData('current')
+    Object.keys(_userdata.users).forEach(function(key) {
+        if((key === answer.name)&&(_userdata.users[key]) === answer.pass ){
             response.succ= 'ok';
             res.send(response);
-            var scurrent = await redisComm.getData('current')
             var current = JSON.parse(scurrent);
             current.user = "admin";
             redisComm.setData('current',current);
             return;
-        }else if((_userdata.users[i].username === answer.name)&&(_userdata.users[i].password !== answer.pass )){
+        }else if(( key  === answer.name)&&(_userdata.users[key] !== answer.pass )){
             response.err= 'Wroung password!';
             res.send(response);
             return;
@@ -37,6 +37,6 @@ router.post('/', async (req, res) => {
             res.send(response);
             return;  
         }
-    }
+      })
 })
 module.exports = router;

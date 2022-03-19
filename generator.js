@@ -3,7 +3,9 @@ const QRCode = require('qrcode');
 const path = require('path')
 const genSender = require('./Redis/redisSender');
 const mongo = require('./Mongo/M.js');
+const WebSocket = require('ws')
 const fs = require('fs');
+const { json } = require('body-parser');
 // lists
 const _pgender_type = ["Male","Female"];
 const _edomain = ["@gmail.com", "@yahoo.com","@outlook.com"
@@ -419,12 +421,29 @@ function fabricate_Multipackages(num,seed,length,base,duration){
 * @param  err   callvack function for error throwing
 * @return       returns a true false, in case of an error thorws.
 */
+
+const wss = new WebSocket.Server({port: 8082});
+wss.on("connection" , ws =>{
+    console.log("a client connected !");
+    js = JSON.stringify({s:12})
+    console.log(js)
+    ws.send(js)
+
+    ws.on("close", () =>{
+        console.log("client disconnected!");
+    });
+});
+
+
+
+
+
+
 async function packToFile(num){
     let buff_tempdata = fs.readFileSync(path.join(__dirname,'./data/dataAccum.json'));
     let _dataAcum = JSON.parse(buff_tempdata);
     var json =JSON.parse(fabricate_Multipackages(num,3292313261*gen_IntRange(2,3408),16,16,5));
     var prettyJSON = JSON.stringify(json);
-    
     _dataAcum.package.push(json.package[0]);
     fs.writeFileSync(path.join(__dirname,'./data/dataAccum.json'), JSON.stringify(_dataAcum));
     var ids= [];
