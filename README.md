@@ -1,5 +1,5 @@
-# Delivry.
-using mongodb, BigML. Redis. XMLHttpRequest, Firebase, HTML, and CSS to stimulate a delivry company.
+# Delivery.
+using mongodb, BigML. Redis. XMLHttpRequest, Firebase, HTML, and CSS to stimulate a delivery company.
 
 
 ## GIF for example: 
